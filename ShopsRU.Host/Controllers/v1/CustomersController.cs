@@ -8,6 +8,7 @@ using ShopsRU.Application.Interfaces.Services;
 namespace ShopsRU.Host.Controllers.v1
 {
     [ApiController]
+    [ApiVersion(1)]
     [Route("api/v{version:ApiVersion}")]
     public class CustomersController : ControllerBase
     {

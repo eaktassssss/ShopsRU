@@ -7,8 +7,9 @@ using ShopsRU.Application.Interfaces.Services;
 namespace ShopsRU.Host.Controllers.v1
 {
     [ApiController]
-    //[ApiVersion(1)]
+    [ApiVersion(1)]
     [Route("api/v{version:ApiVersion}")]
+
     public class DiscountsController : ControllerBase
     {
         ICustomerDiscountService _customerDiscountService;
