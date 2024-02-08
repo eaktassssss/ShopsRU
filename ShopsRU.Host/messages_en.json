@@ -1,0 +1,8 @@
+{
+  "ALREADY_EXISTS": "The resource already exists in the system.",
+  "OPERATION_FAILED": "The operation has failed. Please try again later.",
+  "OPERATION_SUCCESS": "The operation was successful.",
+  "RESOURCE_NOT_FOUND": "The requested resource could not be found.",
+  "DATA_RETRIEVED_SUCCESSFULLY": "Data retrieved successfully.",
+  "ORDER_ITEM_NOT_FOUND": "Orsder item could not be found."
+}
