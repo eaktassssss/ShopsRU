@@ -1,5 +1,4 @@
- 
- 
+
 using ShopsRU.Application.Validators;
 using ShopsRU.Host.Attributes;
 using Microsoft.OpenApi.Models;
@@ -7,17 +6,32 @@ using OpenTelemetry.Trace;
 using OpenTelemetry.Resources;
 using FluentValidation.AspNetCore;
 using ShopsRU.Persistence.Bootstrapper;
-
+using Asp.Versioning;
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>())
             .AddFluentValidation(configuration => configuration
                 .RegisterValidatorsFromAssemblyContaining<ProductValidator>())
             .ConfigureApiBehaviorOptions(o => o.SuppressModelStateInvalidFilter = true);
-
-
-builder.Services.AddPersistenceServiceRegistration(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+builder.Services.AddApiVersioning(x =>
+{
+    x.AssumeDefaultVersionWhenUnspecified = true;
+    x.DefaultApiVersion = ApiVersion.Default;
+    x.ReportApiVersions = true;
+    x.ApiVersionReader = ApiVersionReader.Combine(
+        new QueryStringApiVersionReader("api-version"),
+        new HeaderApiVersionReader("api-version"),
+        new UrlSegmentApiVersionReader()
+        );
+}).AddApiExplorer(x =>
+{
+    x.GroupNameFormat = "'v'V";
+    x.SubstituteApiVersionInUrl = true;
+});
 
 builder.Services.AddOpenTelemetry().WithTracing(configuration =>
 {
@@ -36,28 +50,80 @@ builder.Services.AddOpenTelemetry().WithTracing(configuration =>
     });
 
 });
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shops RU", Version = "v1" });
-});
-
+builder.Services.AddPersistenceServiceRegistration(builder.Configuration);
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shops RU V1");
-        c.DocumentTitle = "Shops RU V1 Docs";
-        c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.List);
-        c.InjectStylesheet("/assets/css/swagger-ui.css");
-        c.DefaultModelsExpandDepth(-1);
-    });
+    app.UseSwaggerUI();
 }
-
 app.UseHttpsRedirection();
 app.UseAuthorization();
-app.UseSwagger();
-app.UseStaticFiles();
 app.MapControllers();
 app.Run();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 

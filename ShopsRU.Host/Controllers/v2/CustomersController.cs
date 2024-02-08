@@ -5,10 +5,12 @@ using ShopsRU.Application.Contract.Request.Category;
 using ShopsRU.Application.Contract.Request.Customer;
 using ShopsRU.Application.Interfaces.Services;
 
-namespace ShopsRU.Host.Controllers.v1
+namespace ShopsRU.Host.Controllers.v2
 {
-    [ApiController]
+   
+    [ApiVersion(2)]
     [Route("api/v{version:ApiVersion}")]
+    [ApiController]
     public class CustomersController : ControllerBase
     {
         ICustomerService _customerService;

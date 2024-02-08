@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopsRU.Persistence.Context.EntityFramework;
 
@@ -11,9 +12,11 @@ using ShopsRU.Persistence.Context.EntityFramework;
 namespace ShopsRU.Persistence.Context.Migrations.SQL
 {
     [DbContext(typeof(ShopsRUContext))]
-    partial class ShopsRUContextModelSnapshot : ModelSnapshot
+    [Migration("20240208171159_product_table_color_fied_added")]
+    partial class product_table_color_fied_added
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +41,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 47, 39, 184, DateTimeKind.Local).AddTicks(3849));
+                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 11, 58, 922, DateTimeKind.Local).AddTicks(4176));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -59,7 +62,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 1,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 184, DateTimeKind.Local).AddTicks(4580),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 922, DateTimeKind.Local).AddTicks(4919),
                             IsDeleted = false,
                             Name = "Mutfak"
                         },
@@ -67,7 +70,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 2,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 184, DateTimeKind.Local).AddTicks(4585),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 922, DateTimeKind.Local).AddTicks(4926),
                             IsDeleted = false,
                             Name = "Mobilya"
                         },
@@ -75,7 +78,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 3,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 184, DateTimeKind.Local).AddTicks(4587),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 922, DateTimeKind.Local).AddTicks(4928),
                             IsDeleted = false,
                             Name = "Market"
                         },
@@ -83,7 +86,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 4,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 184, DateTimeKind.Local).AddTicks(4588),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 922, DateTimeKind.Local).AddTicks(4929),
                             IsDeleted = false,
                             Name = "Aydınlatma"
                         });
@@ -105,7 +108,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(3018));
+                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 11, 58, 919, DateTimeKind.Local).AddTicks(7091));
 
                     b.Property<int>("CustomerTypeId")
                         .HasColumnType("int");
@@ -139,44 +142,44 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 1,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(3897),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 919, DateTimeKind.Local).AddTicks(8007),
                             CustomerTypeId = 1,
                             FirstName = "EVREN",
                             IsDeleted = false,
-                            JoiningDate = new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(3901),
+                            JoiningDate = new DateTime(2024, 2, 8, 20, 11, 58, 919, DateTimeKind.Local).AddTicks(8013),
                             LastName = "AKTAŞ"
                         },
                         new
                         {
                             Id = 2,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(3902),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 919, DateTimeKind.Local).AddTicks(8014),
                             CustomerTypeId = 2,
                             FirstName = "ECE",
                             IsDeleted = false,
-                            JoiningDate = new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(3903),
+                            JoiningDate = new DateTime(2024, 2, 8, 20, 11, 58, 919, DateTimeKind.Local).AddTicks(8015),
                             LastName = "DAĞDELEN"
                         },
                         new
                         {
                             Id = 3,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(3904),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 919, DateTimeKind.Local).AddTicks(8016),
                             CustomerTypeId = 1,
                             FirstName = "İBRAHİM",
                             IsDeleted = false,
-                            JoiningDate = new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(3905),
+                            JoiningDate = new DateTime(2024, 2, 8, 20, 11, 58, 919, DateTimeKind.Local).AddTicks(8018),
                             LastName = "AKIŞIK"
                         },
                         new
                         {
                             Id = 4,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(3906),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 919, DateTimeKind.Local).AddTicks(8018),
                             CustomerTypeId = 2,
                             FirstName = "GİZEM",
                             IsDeleted = false,
-                            JoiningDate = new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(3907),
+                            JoiningDate = new DateTime(2024, 2, 8, 20, 11, 58, 919, DateTimeKind.Local).AddTicks(8020),
                             LastName = "KURTCUOĞLU"
                         });
                 });
@@ -197,7 +200,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 47, 39, 180, DateTimeKind.Local).AddTicks(7742));
+                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 11, 58, 919, DateTimeKind.Local).AddTicks(2272));
 
                     b.Property<int>("CustomerTypeId")
                         .HasColumnType("int");
@@ -237,7 +240,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(6526));
+                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 11, 58, 920, DateTimeKind.Local).AddTicks(394));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -257,7 +260,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 1,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(7279),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 920, DateTimeKind.Local).AddTicks(1184),
                             IsDeleted = false,
                             Type = "Mağaza Çalışanı"
                         },
@@ -265,7 +268,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 2,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 181, DateTimeKind.Local).AddTicks(7285),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 920, DateTimeKind.Local).AddTicks(1193),
                             IsDeleted = false,
                             Type = "Mağaza Üyesi"
                         });
@@ -287,7 +290,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 47, 39, 182, DateTimeKind.Local).AddTicks(2068));
+                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 11, 58, 920, DateTimeKind.Local).AddTicks(5705));
 
                     b.Property<int>("DiscountRate")
                         .HasColumnType("int");
@@ -310,7 +313,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 1,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 182, DateTimeKind.Local).AddTicks(2827),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 920, DateTimeKind.Local).AddTicks(6466),
                             DiscountRate = 30,
                             DiscountType = "Yüzde",
                             IsDeleted = false
@@ -319,7 +322,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 2,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 182, DateTimeKind.Local).AddTicks(2832),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 920, DateTimeKind.Local).AddTicks(6472),
                             DiscountRate = 10,
                             DiscountType = "Yüzde",
                             IsDeleted = false
@@ -328,7 +331,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 3,
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 182, DateTimeKind.Local).AddTicks(2833),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 920, DateTimeKind.Local).AddTicks(6473),
                             DiscountRate = 5,
                             DiscountType = "Yüzde",
                             IsDeleted = false
@@ -354,7 +357,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 47, 39, 182, DateTimeKind.Local).AddTicks(7045));
+                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 11, 58, 920, DateTimeKind.Local).AddTicks(9964));
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -407,7 +410,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 47, 39, 183, DateTimeKind.Local).AddTicks(2245));
+                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 11, 58, 921, DateTimeKind.Local).AddTicks(4137));
 
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
@@ -448,7 +451,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 47, 39, 183, DateTimeKind.Local).AddTicks(6213));
+                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 11, 58, 921, DateTimeKind.Local).AddTicks(7219));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -492,6 +495,10 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -500,7 +507,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     b.Property<DateTime>("CreatedOn")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 47, 39, 184, DateTimeKind.Local).AddTicks(716));
+                        .HasDefaultValue(new DateTime(2024, 2, 8, 20, 11, 58, 922, DateTimeKind.Local).AddTicks(1233));
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -527,8 +534,9 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 1,
                             CategoryId = 1,
+                            Color = "Red",
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 184, DateTimeKind.Local).AddTicks(1591),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 922, DateTimeKind.Local).AddTicks(2079),
                             IsDeleted = false,
                             Name = "Gardırop",
                             Price = 3000m
@@ -537,8 +545,9 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 2,
                             CategoryId = 2,
+                            Color = "Yellow",
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 184, DateTimeKind.Local).AddTicks(1596),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 922, DateTimeKind.Local).AddTicks(2086),
                             IsDeleted = false,
                             Name = "Fırın",
                             Price = 4000m
@@ -547,8 +556,9 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 3,
                             CategoryId = 3,
+                            Color = "White",
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 184, DateTimeKind.Local).AddTicks(1598),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 922, DateTimeKind.Local).AddTicks(2088),
                             IsDeleted = false,
                             Name = "Fıstık Ezmesi",
                             Price = 85m
@@ -557,8 +567,9 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         {
                             Id = 4,
                             CategoryId = 4,
+                            Color = "Blue",
                             CreatedBy = "EVREN AKTAŞ",
-                            CreatedOn = new DateTime(2024, 2, 8, 20, 47, 39, 184, DateTimeKind.Local).AddTicks(1599),
+                            CreatedOn = new DateTime(2024, 2, 8, 20, 11, 58, 922, DateTimeKind.Local).AddTicks(2090),
                             IsDeleted = false,
                             Name = "ModeLight Işıl 3'lü Avize",
                             Price = 4000m

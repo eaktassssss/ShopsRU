@@ -6,10 +6,10 @@ using ShopsRU.Application.Contract.Request.Product;
 using ShopsRU.Application.Interfaces.Services;
 
 
-namespace ShopsRU.Host.Controllers.v1
+namespace ShopsRU.Host.Controllers.v2
 {
     [ApiController]
-    [ApiVersion(1)]
+    [ApiVersion(2)]
     [Route("api/v{version:ApiVersion}")]
     public class ProductsController : ControllerBase
     {

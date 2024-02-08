@@ -12,7 +12,7 @@ namespace ShopsRU.Application.Contract.Request.Product
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
-        public CreateProductResponse MapToPaylod(ShopsRU.Domain.Entities.Product product)
+        public CreateProductResponse MapToPaylod(Domain.Entities.Product product)
         {
             return new CreateProductResponse
             {
@@ -20,17 +20,19 @@ namespace ShopsRU.Application.Contract.Request.Product
                 Name = product.Name,
                 Price = product.Price,
                 CategoryId = product.CategoryId,
-                CreatedOn = product.CreatedOn
+                CreatedOn = product.CreatedOn,
+                
+                
             };
         }
 
-        public ShopsRU.Domain.Entities.Product MapToEntity()
+        public Domain.Entities.Product MapToEntity()
         {
-            return new ShopsRU.Domain.Entities.Product()
+            return new Domain.Entities.Product()
             {
-                Name = this.Name,
-                Price = this.Price,
-                CategoryId = this.CategoryId,
+                Name = Name,
+                Price = Price,
+                CategoryId = CategoryId,
             };
 
         }

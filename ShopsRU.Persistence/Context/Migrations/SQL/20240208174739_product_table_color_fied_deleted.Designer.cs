@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShopsRU.Persistence.Context.EntityFramework;
 
@@ -11,9 +12,11 @@ using ShopsRU.Persistence.Context.EntityFramework;
 namespace ShopsRU.Persistence.Context.Migrations.SQL
 {
     [DbContext(typeof(ShopsRUContext))]
-    partial class ShopsRUContextModelSnapshot : ModelSnapshot
+    [Migration("20240208174739_product_table_color_fied_deleted")]
+    partial class product_table_color_fied_deleted
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
