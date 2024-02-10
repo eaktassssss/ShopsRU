@@ -60,14 +60,14 @@ Write a program in a programming language of your choice with test cases such th
 
 
 ### Language and Technologies
-* .Net 7
+* .Net 8
 * SQL
 * EF CORE
 * Code First
 * Fluent Validation
 * C#
 * OpenTelemetry
-
+* Redis
 ### Getting Started
 
 1. Clone the repo
