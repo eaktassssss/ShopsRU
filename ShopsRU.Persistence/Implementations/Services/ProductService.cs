@@ -27,17 +27,15 @@ namespace ShopsRU.Persistence.Implementations.Services
         }
         public async Task<ServiceDataResponse<CreateProductResponse>> CreateAsync(CreateProductRequest createProductRequest)
         {
-            ServiceDataResponse<CreateProductResponse> serviceDataResponse = new ServiceDataResponse<CreateProductResponse>();
-
-            var productCheck = await _productRepository.GetSingleAsync(x => x.Name.Trim().ToLower() == createProductRequest.Name.Trim().ToLower());
-            if (productCheck != null)
+            var productExists = await _productRepository.GetSingleAsync(x => x.Name.Trim().ToLower() == createProductRequest.Name.Trim().ToLower());
+            if (productExists != null)
             {
-                return serviceDataResponse.CreateServiceResponse<CreateProductResponse>(409, _resourceService, Domain.Enums.ResponseMessages.ALREADY_EXISTS);
+                return ServiceDataResponse<CreateProductResponse>.CreateServiceResponse(_resourceService, createProductRequest.MapToPaylod(productExists), Domain.Enums.ResponseMessages.ALREADY_EXISTS);
             }
             var product = createProductRequest.MapToEntity();
             await _productRepository.AddAsync(product);
-            var result = await _unitOfWork.CommitAsync();
-            return serviceDataResponse.CreateServiceResponse<CreateProductResponse>(result, createProductRequest.MapToPaylod(product), _resourceService);
+            await _unitOfWork.CommitAsync();
+            return ServiceDataResponse<CreateProductResponse>.CreateServiceResponse(_resourceService, createProductRequest.MapToPaylod(product), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
     }
 }

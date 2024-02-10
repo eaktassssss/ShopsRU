@@ -14,5 +14,10 @@ namespace ShopsRU.Application.Contract.Response.Customer
         public DateTime JoiningDate { get; set; }
         public int CustomerTypeId { get; set; }
         public DateTime CreatedOn { get; set; }
+
+        public GetSingleCustomerResponse MapToPaylod(ShopsRU.Domain.Entities.Customer customer)
+        {
+            return new GetSingleCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedOn = customer.CreatedOn };
+        }
     }
 }

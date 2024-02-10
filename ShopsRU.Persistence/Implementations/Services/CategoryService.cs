@@ -1,8 +1,10 @@
 ﻿using ShopsRU.Application.Contract.Request.Category;
 using ShopsRU.Application.Contract.Request.Customer;
+using ShopsRU.Application.Contract.Request.Product;
 using ShopsRU.Application.Contract.Response.Category;
 using ShopsRU.Application.Contract.Response.Customer;
 using ShopsRU.Application.Contract.Response.CustomerDiscount;
+using ShopsRU.Application.Contract.Response.Product;
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
 using ShopsRU.Application.Interfaces.UnitOfWork;
@@ -28,36 +30,36 @@ namespace ShopsRU.Persistence.Implementations.Services
 
         public async Task<ServiceDataResponse<CreateCategoryResponse>> CreateAsync(CreateCategoryRequest createCategoryRequest)
         {
-            ServiceDataResponse<CreateCategoryResponse> serviceDataResponse = new ServiceDataResponse<CreateCategoryResponse>();
 
-            var categoryCheck = await _categoryRepository.GetSingleAsync(x => x.Name.Trim().ToLower() == createCategoryRequest.Name.Trim().ToLower());
-            if (categoryCheck != null)
+            var categoryExists = await _categoryRepository.GetSingleAsync(x => x.Name.Trim().ToLower() == createCategoryRequest.Name.Trim().ToLower());
+            if (categoryExists != null)
             {
-                return serviceDataResponse.CreateServiceResponse<CreateCategoryResponse>(409, _resourceService, Domain.Enums.ResponseMessages.ALREADY_EXISTS);
+                return ServiceDataResponse<CreateCategoryResponse>.CreateServiceResponse(_resourceService, createCategoryRequest.MapToPaylod(categoryExists), Domain.Enums.ResponseMessages.ALREADY_EXISTS);
+
 
             }
 
             var category = createCategoryRequest.MapToEntity();
             await _categoryRepository.AddAsync(category);
-            var result = await _unitOfWork.CommitAsync();
-            return serviceDataResponse.CreateServiceResponse<CreateCategoryResponse>(result, createCategoryRequest.MapToPaylod(category), _resourceService);
+            await _unitOfWork.CommitAsync();
+            return ServiceDataResponse<CreateCategoryResponse>.CreateServiceResponse(_resourceService, createCategoryRequest.MapToPaylod(category), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
 
         public async Task<ServiceDataResponse<UpdateCategoryResponse>> UpdateAsync(UpdateCategoryRequest updateCategoryRequest)
         {
-            ServiceDataResponse<UpdateCategoryResponse> serviceDataResponse = new ServiceDataResponse<UpdateCategoryResponse>();
 
             var category = await _categoryRepository.GetByIdAsync(updateCategoryRequest.Id);
             if (category == null)
             {
-                return serviceDataResponse.CreateServiceResponse<UpdateCategoryResponse>(409, _resourceService, Domain.Enums.ResponseMessages.RESOURCE_NOT_FOUND);
+
+                return ServiceDataResponse<UpdateCategoryResponse>.CreateServiceResponse(_resourceService,Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
             }
 
             category.Id = updateCategoryRequest.Id;
             category.Name = updateCategoryRequest.Name;
             await _categoryRepository.UpdateAsync(category);
-            var result = await _unitOfWork.CommitAsync();
-            return serviceDataResponse.CreateServiceResponse<UpdateCategoryResponse>(result, updateCategoryRequest.MapToPaylod(category), _resourceService);
+           await _unitOfWork.CommitAsync();
+            return ServiceDataResponse<UpdateCategoryResponse>.CreateServiceResponse(_resourceService, updateCategoryRequest.MapToPaylod(category), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
     }
 }

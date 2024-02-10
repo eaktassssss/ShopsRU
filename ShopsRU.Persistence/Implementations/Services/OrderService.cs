@@ -1,12 +1,14 @@
 ﻿
+using ShopsRU.Application.Contract.Request.Customer;
 using ShopsRU.Application.Contract.Request.Order;
+using ShopsRU.Application.Contract.Response.Customer;
 using ShopsRU.Application.Contract.Response.Order;
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
 using ShopsRU.Application.Interfaces.UnitOfWork;
 using ShopsRU.Application.Wrappers;
 using ShopsRU.Domain.Entities;
- 
+
 
 namespace ShopsRU.Persistence.Implementations.Services
 {
@@ -27,20 +29,17 @@ namespace ShopsRU.Persistence.Implementations.Services
         }
         public async Task<ServiceDataResponse<CreateOrderResponse>> CreateAsync(CreateOrderRequest createOrderRequest)
         {
-            ServiceDataResponse<CreateOrderResponse> serviceDataResponse = new ServiceDataResponse<CreateOrderResponse>();
-            
+
             var customer = await _customerRepository.GetSingleAsync(x => x.Id == createOrderRequest.CustomerId);
             if (customer == null)
             {
-                return serviceDataResponse.CreateServiceResponse<CreateOrderResponse>(404, _resourceService, Domain.Enums.ResponseMessages.RESOURCE_NOT_FOUND);
+                return ServiceDataResponse<CreateOrderResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
 
             }
             if (createOrderRequest.OrderItemRequest.Count == 0)
             {
-                serviceDataResponse.Message = _resourceService.GetResource("ORDER_ITEM_NOT_FOUND");
-                serviceDataResponse.StatusCode = 404;
-                serviceDataResponse.Success = false;
-                return serviceDataResponse;
+
+                return ServiceDataResponse<CreateOrderResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.ORDER_ITEM_NOT_FOUND);
             }
 
             var order = createOrderRequest.MapToEntity();
@@ -60,23 +59,8 @@ namespace ShopsRU.Persistence.Implementations.Services
             }
             order.TotalAmount = order.OrderItems.Sum(x => x.TotalPrice);
             await _orderRepository.AddAsync(order);
-            var result = await _unitOfWork.CommitAsync();
-            switch (result)
-            {
-                case true:
-                    serviceDataResponse.Message = _resourceService.GetResource("OPERATION_SUCCESS");
-                    serviceDataResponse.StatusCode = 200;
-                    serviceDataResponse.Success = true;
-                    serviceDataResponse.Paylod = createOrderRequest.MapToPaylod(order);
-                    break;
-
-                case false:
-                    serviceDataResponse.Message = _resourceService.GetResource("OPERATION_FAILED");
-                    serviceDataResponse.StatusCode = 500;
-                    serviceDataResponse.Success = false;
-                    break;
-            }
-            return serviceDataResponse;
+            await _unitOfWork.CommitAsync();
+            return ServiceDataResponse<CreateOrderResponse>.CreateServiceResponse(_resourceService, createOrderRequest.MapToPaylod(order), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
     }
 }

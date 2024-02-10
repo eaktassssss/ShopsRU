@@ -20,6 +20,7 @@ namespace ShopsRU.Persistence.Implementations.Services
         IUnitOfWork _unitOfWork;
         IResourceService _resourceService;
         IRedisCacheService _redisCacheService;
+        
         public CustomerService(ICustomerRepository customerRepository, IUnitOfWork unitOfWork, IResourceService resourceService, IRedisCacheService redisCacheService)
         {
             _customerRepository = customerRepository;
@@ -29,18 +30,15 @@ namespace ShopsRU.Persistence.Implementations.Services
         }
         public async Task<ServiceDataResponse<CreateCustomerResponse>> CreateAsync(CreateCustomerRequest createCustomerRequest)
         {
-            ServiceDataResponse<CreateCustomerResponse> serviceDataResponse = new ServiceDataResponse<CreateCustomerResponse>();
             var customer = createCustomerRequest.MapToEntity();
             await _customerRepository.AddAsync(customer);
             var result = await _unitOfWork.CommitAsync();
-            _redisCacheService.RemoveCache("customers");
-            return serviceDataResponse.CreateServiceResponse<CreateCustomerResponse>(result, createCustomerRequest.MapToPaylod(customer), _resourceService);
+            _redisCacheService.RemoveCache(RedisCacheKeys.CustomerCacheKey);
+            return ServiceDataResponse<CreateCustomerResponse>.CreateServiceResponse(_resourceService,createCustomerRequest.MapToPaylod(customer),ResponseMessages.OPERATION_SUCCESS);
         }
 
         public async Task<ServiceDataResponse<List<GetAllCustomerResponse>>> GetAllAsync()
         {
-            ServiceDataResponse<List<GetAllCustomerResponse>> serviceDataResponse = new ServiceDataResponse<List<GetAllCustomerResponse>>();
-
             var customersCacheData = _redisCacheService.GetCache<List<GetAllCustomerResponse>>(RedisCacheKeys.CustomerCacheKey);
             if (customersCacheData == null)
             {
@@ -52,40 +50,32 @@ namespace ShopsRU.Persistence.Implementations.Services
                 }).ToList();
                 if (customers.Any())
                 {
-                    serviceDataResponse.CreateServiceResponse<List<GetAllCustomerResponse>>(200, customers, _resourceService, ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
                     var cacheTime = DateTimeOffset.Now.DateTime.AddMinutes(30);
                     _redisCacheService.SetCache<List<GetAllCustomerResponse>>(RedisCacheKeys.CustomerCacheKey, customers, cacheTime);
-                    return serviceDataResponse;
+                    return ServiceDataResponse<List<GetAllCustomerResponse>>.CreateServiceResponse(_resourceService, customers, ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
                 }
                 else
                 {
-                    serviceDataResponse.CreateServiceResponse<List<GetAllCustomerResponse>>(404, _resourceService, ResponseMessages.DATA_NOT_FOUND);
+                    return ServiceDataResponse<List<GetAllCustomerResponse>>.CreateServiceResponse(_resourceService, ResponseMessages.DATA_NOT_FOUND);
                 }
             }
             else
             {
-                serviceDataResponse.CreateServiceResponse<List<GetAllCustomerResponse>>(200, customersCacheData, _resourceService, ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
+                return ServiceDataResponse<List<GetAllCustomerResponse>>.CreateServiceResponse(_resourceService,customersCacheData, ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
             }
-            return serviceDataResponse;
-
         }
 
         public async Task<ServiceDataResponse<GetSingleCustomerResponse>> GetSingleAsync(int id)
         {
-            ServiceDataResponse<GetSingleCustomerResponse> serviceDataResponse = new ServiceDataResponse<GetSingleCustomerResponse>();
 
             var customer = await _customerRepository.GetSingleAsync(x => x.Id == id);
             if (customer == null)
             {
-                return serviceDataResponse.CreateServiceResponse<GetSingleCustomerResponse>(404, _resourceService, Domain.Enums.ResponseMessages.RESOURCE_NOT_FOUND);
-
+                return ServiceDataResponse<GetSingleCustomerResponse>.CreateServiceResponse(_resourceService, ResponseMessages.DATA_NOT_FOUND);
             }
             GetSingleCustomerResponse getSingleCustomerResponse = new GetSingleCustomerResponse();
-            serviceDataResponse.Message = _resourceService.GetResource("DATA_RETRIEVED_SUCCESSFULLY");
-            serviceDataResponse.StatusCode = 200;
-            serviceDataResponse.Success = true;
-            serviceDataResponse.Paylod = new GetSingleCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedOn = customer.CreatedOn };
-            return serviceDataResponse;
+            var customerResponse = new GetSingleCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedOn = customer.CreatedOn };
+            return ServiceDataResponse<GetSingleCustomerResponse>.CreateServiceResponse(_resourceService, getSingleCustomerResponse.MapToPaylod(customer), ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
         }
     }
 }

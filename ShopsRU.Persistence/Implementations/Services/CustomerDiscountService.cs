@@ -2,6 +2,7 @@
 using ShopsRU.Application.Contract.Request.CustomerDiscount;
 using ShopsRU.Application.Contract.Response.Category;
 using ShopsRU.Application.Contract.Response.CustomerDiscount;
+using ShopsRU.Application.Contract.Response.Invoice;
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
 using ShopsRU.Application.Interfaces.UnitOfWork;
@@ -25,24 +26,22 @@ namespace ShopsRU.Persistence.Implementations.Services
         }
         public async Task<ServiceDataResponse<DiscountResponse>> CreateAsync(CreateDiscountRequest createCustomerDiscountRequest)
         {
-            ServiceDataResponse<DiscountResponse> serviceDataResponse = new ServiceDataResponse<DiscountResponse>();
 
             var customerType = await _customerTypeRepository.GetByIdAsync(createCustomerDiscountRequest.CustomerTypeId);
             if (customerType == null)
             {
-                return serviceDataResponse.CreateServiceResponse<DiscountResponse>(404, _resourceService, Domain.Enums.ResponseMessages.RESOURCE_NOT_FOUND);
+                return ServiceDataResponse<DiscountResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
             }
             var customerDiscountExists = await _customerDiscountRepository.GetSingleAsync(x => x.CustomerTypeId == createCustomerDiscountRequest.CustomerTypeId && x.IsDeleted == false);
             if (customerDiscountExists != null)
             {
-
-                return serviceDataResponse.CreateServiceResponse<DiscountResponse>(409, _resourceService, Domain.Enums.ResponseMessages.ALREADY_EXISTS);
+                return ServiceDataResponse<DiscountResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.ALREADY_EXISTS);
             }
 
             var customerDiscount = createCustomerDiscountRequest.MapToEntity();
             await _customerDiscountRepository.AddAsync(customerDiscount);
-            var result = await _unitOfWork.CommitAsync();
-            return serviceDataResponse.CreateServiceResponse<DiscountResponse>(result, createCustomerDiscountRequest.MapToPaylod(customerDiscount), _resourceService);
+            await _unitOfWork.CommitAsync();
+            return ServiceDataResponse<DiscountResponse>.CreateServiceResponse(_resourceService, createCustomerDiscountRequest.MapToPaylod(customerDiscount), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
     }
 }
