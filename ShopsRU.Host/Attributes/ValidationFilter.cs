@@ -24,6 +24,7 @@ namespace ShopsRU.Host.Attributes
                 return;
             }
             await next();
+            
         }
     }
 }

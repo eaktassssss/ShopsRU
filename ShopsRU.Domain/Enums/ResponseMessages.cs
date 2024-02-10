@@ -12,6 +12,7 @@ namespace ShopsRU.Domain.Enums
         ALREADY_EXISTS,
         OPERATION_FAILED, OPERATION_SUCCESS,
         RESOURCE_NOT_FOUND,
-        SALES_DETAIL_NOT_FOUND
+        SALES_DETAIL_NOT_FOUND,
+            DATA_NOT_FOUND
     }
 }

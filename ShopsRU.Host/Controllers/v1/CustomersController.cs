@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using ShopsRU.Application.Contract.Request.Category;
 using ShopsRU.Application.Contract.Request.Customer;
 using ShopsRU.Application.Interfaces.Services;
+using ShopsRU.Application.Interfaces.UnitOfWork;
+using ShopsRU.Persistence.Implementations.UnitOfWork;
 
 namespace ShopsRU.Host.Controllers.v1
 {
@@ -16,6 +18,8 @@ namespace ShopsRU.Host.Controllers.v1
         public CustomersController(ICustomerService customerService)
         {
             _customerService = customerService;
+          
+            
         }
         [HttpPost]
         [Route("customer")]
@@ -30,6 +34,15 @@ namespace ShopsRU.Host.Controllers.v1
         public async Task<IActionResult> GetSingleAsync(int id)
         {
             var response = await _customerService.GetSingleAsync(id);
+            return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("customer")]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var response = await _customerService.GetAllAsync();
             return Ok(response);
         }
     }

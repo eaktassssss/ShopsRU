@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopsRU.Persistence", "Shop
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopsRU.Host", "ShopsRU.Host\ShopsRU.Host.csproj", "{D0C62CB7-E9B4-4AA6-99BD-EF7B2149C4B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopsRU.Infrastructure", "ShopsRU.Infrastructure\ShopsRU.Infrastructure.csproj", "{F5F05A8E-B4FC-481D-9021-9D1E48946518}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D0C62CB7-E9B4-4AA6-99BD-EF7B2149C4B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0C62CB7-E9B4-4AA6-99BD-EF7B2149C4B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0C62CB7-E9B4-4AA6-99BD-EF7B2149C4B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5F05A8E-B4FC-481D-9021-9D1E48946518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5F05A8E-B4FC-481D-9021-9D1E48946518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5F05A8E-B4FC-481D-9021-9D1E48946518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5F05A8E-B4FC-481D-9021-9D1E48946518}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

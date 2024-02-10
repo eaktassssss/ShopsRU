@@ -39,12 +39,20 @@ namespace ShopsRU.Application.Wrappers
         public ServiceDataResponse<T> CreateServiceResponse<T>(int statusCode, IResourceService resourceService, ResponseMessages ResponseMessages)
         {
             var serviceResponse = new ServiceDataResponse<T>();
-
             serviceResponse.Message = resourceService.GetResource(Enum.GetName<ResponseMessages>(ResponseMessages));
             serviceResponse.StatusCode = statusCode;
             serviceResponse.Success = false;
             return serviceResponse;
+        }
 
+        public ServiceDataResponse<T> CreateServiceResponse<T>(int statusCode,T paylod, IResourceService resourceService, ResponseMessages ResponseMessages)
+        {
+            var serviceResponse = new ServiceDataResponse<T>();
+            serviceResponse.Message = resourceService.GetResource(Enum.GetName<ResponseMessages>(ResponseMessages));
+            serviceResponse.StatusCode = statusCode;
+            serviceResponse.Success = true;
+            serviceResponse.Paylod=paylod;
+            return serviceResponse;
         }
     }
 }

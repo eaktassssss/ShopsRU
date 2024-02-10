@@ -15,7 +15,6 @@ namespace ShopsRU.Application.Interfaces.Services
     {
         Task<ServiceDataResponse<CreateCustomerResponse>> CreateAsync(CreateCustomerRequest  createCustomerRequest);
         Task<ServiceDataResponse<GetSingleCustomerResponse>> GetSingleAsync(int id);
-
-     
+        Task<ServiceDataResponse<List<GetAllCustomerResponse>>> GetAllAsync();
     }
 }

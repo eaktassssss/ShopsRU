@@ -27,7 +27,7 @@ namespace ShopsRU.Persistence.Bootstrapper
             services.AddScoped<ICustomerDiscountService, CustomerDiscountService>();
             services.AddScoped<IResourceService, ResourceService>();
             services.AddScoped<IDiscountStrategy, DiscountStrategy>();
-         
+
             #endregion
             #region Repositories DI
             services.AddScoped<ICustomerTypeRepository, CustomerTypeRepository>();

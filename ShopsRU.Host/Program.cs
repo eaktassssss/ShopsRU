@@ -6,7 +6,10 @@ using OpenTelemetry.Trace;
 using OpenTelemetry.Resources;
 using FluentValidation.AspNetCore;
 using ShopsRU.Persistence.Bootstrapper;
+using ShopsRU.Infrastructure.Bootstrapper;
 using Asp.Versioning;
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -15,6 +18,7 @@ builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>
                 .RegisterValidatorsFromAssemblyContaining<ProductValidator>())
             .ConfigureApiBehaviorOptions(o => o.SuppressModelStateInvalidFilter = true);
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddApiVersioning(x =>
@@ -51,6 +55,7 @@ builder.Services.AddOpenTelemetry().WithTracing(configuration =>
 
 });
 builder.Services.AddPersistenceServiceRegistration(builder.Configuration);
+builder.Services.AddInfrastructureServiceRegistration(builder.Configuration);
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
