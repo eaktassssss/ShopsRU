@@ -19,7 +19,7 @@ namespace ShopsRU.Host.Controllers.v1
             _customerDiscountService = customerDiscountService;
         }
         [HttpPost]
-        [Route("discount")]
+        [Route("customer-discount")]
         public async Task<IActionResult> CreateAsync(CreateDiscountRequest createCustomerDiscountRequest)
         {
             var response = await _customerDiscountService.CreateAsync(createCustomerDiscountRequest);

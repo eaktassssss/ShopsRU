@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ShopsRU.Application.Wrappers
@@ -26,6 +27,7 @@ namespace ShopsRU.Application.Wrappers
             SetResponseDetails(serviceResponse, responseMessage);
             return serviceResponse;
         }
+
         public static int GetStatusCode(ResponseMessages responseMessages)
         {
             return responseMessages switch

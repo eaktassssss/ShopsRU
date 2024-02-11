@@ -18,9 +18,10 @@ namespace ShopsRU.Persistence.Context.EntityConfigurations
             builder.Property(x => x.Quantity).IsRequired();
             builder.Property(x => x.ProductId).IsRequired();
             builder.Property(x => x.UnitPrice).IsRequired();
-            builder.Property(x => x.TotalPrice).IsRequired();
-            builder.Property(x => x.UnitPrice).HasPrecision(18,2);
-            builder.Property(x => x.TotalPrice).HasPrecision(18, 2);
+            builder.Property(x=> x.IsDiscountApplied).IsRequired();
+            builder.Property(x => x.UnitPrice).HasPrecision(18, 0);
+            builder.Property(x=> x.LineDiscountAmount).IsRequired();
+            builder.Property(x => x.LineDiscountAmount).HasPrecision(18, 0);
             builder.HasOne(c => c.Order).WithMany(p => p.OrderItems).HasForeignKey(p => p.OrderId);
             #region Base Entity Configuration
             builder.Property(x => x.CreatedOn).HasDefaultValue(DateTime.Now);

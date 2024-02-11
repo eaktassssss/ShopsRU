@@ -15,6 +15,7 @@ namespace ShopsRU.Domain.Entities
         }
         public string DiscountType { get; set; }
         public int DiscountRate { get; set; }
+        public string Description { get; set; }
         public ICollection<CustomerDiscount> CustomerDiscounts { get; set; }
 
     }

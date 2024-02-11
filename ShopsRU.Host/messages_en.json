@@ -5,5 +5,6 @@
   "DATA_RETRIEVED_SUCCESSFULLY": "Data retrieved successfully.",
   "ORDER_ITEM_NOT_FOUND": "Order item could not be found.",
   "DATA_NOT_FOUND": "Data not found.",
-  "SYSTEM_MESSAGE": "An unexpected error occurred"
+  "SYSTEM_MESSAGE": "An unexpected error occurred",
+  "INSUFFICIENT_STOCK": "There is not enough stock for the selected Product"
 }

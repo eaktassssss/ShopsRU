@@ -16,7 +16,7 @@ namespace ShopsRU.Application.Contract.Request.Customer
         public int CustomerTypeId { get; set; }
 
 
-        public CreateCustomerResponse MapToPaylod(ShopsRU.Domain.Entities.Customer customer)
+        public CreateCustomerResponse MapToResponse(ShopsRU.Domain.Entities.Customer customer)
         {
             return new CreateCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedOn = customer.CreatedOn };
         }

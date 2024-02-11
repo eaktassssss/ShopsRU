@@ -34,7 +34,7 @@ namespace ShopsRU.Persistence.Implementations.Services
             await _customerRepository.AddAsync(customer);
             var result = await _unitOfWork.CommitAsync();
             _redisCacheService.RemoveCache(RedisCacheKeys.CustomerCacheKey);
-            return ServiceDataResponse<CreateCustomerResponse>.CreateServiceResponse(_resourceService,createCustomerRequest.MapToPaylod(customer),ResponseMessages.OPERATION_SUCCESS);
+            return ServiceDataResponse<CreateCustomerResponse>.CreateServiceResponse(_resourceService,createCustomerRequest.MapToResponse(customer),ResponseMessages.OPERATION_SUCCESS);
         }
 
         public async Task<ServiceDataResponse<List<GetAllCustomerResponse>>> GetAllAsync()
@@ -75,7 +75,7 @@ namespace ShopsRU.Persistence.Implementations.Services
             }
             GetSingleCustomerResponse getSingleCustomerResponse = new GetSingleCustomerResponse();
             var customerResponse = new GetSingleCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedOn = customer.CreatedOn };
-            return ServiceDataResponse<GetSingleCustomerResponse>.CreateServiceResponse(_resourceService, getSingleCustomerResponse.MapToPaylod(customer), ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
+            return ServiceDataResponse<GetSingleCustomerResponse>.CreateServiceResponse(_resourceService, getSingleCustomerResponse.MapToResponse(customer), ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
         }
     }
 }

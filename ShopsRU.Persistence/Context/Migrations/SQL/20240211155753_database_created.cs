@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ShopsRU.Persistence.Context.Migrations.SQL
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class database_created : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -20,7 +20,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 8, 17, 22, 4, 342, DateTimeKind.Local).AddTicks(2658)),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 11, 18, 57, 53, 121, DateTimeKind.Local).AddTicks(3562)),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -36,7 +36,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(8241)),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(2699)),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -53,7 +53,8 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DiscountType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DiscountRate = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 8, 17, 22, 4, 340, DateTimeKind.Local).AddTicks(4052)),
+                    Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(8263)),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -70,9 +71,13 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalFixedDiscountAmount = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: false),
+                    TotalOrderAmount = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: false),
+                    NetAmount = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: false),
+                    TotalDiscountAmount = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: false),
+                    IsFixedDiscountApplied = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 8, 17, 22, 4, 341, DateTimeKind.Local).AddTicks(2841)),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 11, 18, 57, 53, 120, DateTimeKind.Local).AddTicks(2540)),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -87,10 +92,12 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    StockQuantity = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     Name = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 8, 17, 22, 4, 341, DateTimeKind.Local).AddTicks(9675)),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 11, 18, 57, 53, 121, DateTimeKind.Local).AddTicks(415)),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -114,7 +121,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     JoiningDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CustomerTypeId = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(4316)),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 11, 18, 57, 53, 118, DateTimeKind.Local).AddTicks(9246)),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -138,7 +145,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                     CustomerTypeId = table.Column<int>(type: "int", nullable: false),
                     DiscountId = table.Column<int>(type: "int", nullable: false),
                     RuleJson = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 8, 17, 22, 4, 338, DateTimeKind.Local).AddTicks(8419)),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 11, 18, 57, 53, 118, DateTimeKind.Local).AddTicks(5037)),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -167,10 +174,12 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderId = table.Column<int>(type: "int", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 8, 17, 22, 4, 341, DateTimeKind.Local).AddTicks(5890)),
+                    LineAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IsDiscountApplied = table.Column<bool>(type: "bit", nullable: false),
+                    LineDiscountAmount = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 11, 18, 57, 53, 120, DateTimeKind.Local).AddTicks(6109)),
                     CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -191,49 +200,15 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Invoices",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerId = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    NetAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DiscountAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BillingUserId = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 2, 8, 17, 22, 4, 340, DateTimeKind.Local).AddTicks(8570)),
-                    CreatedBy = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Invoices", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Invoices_Customers_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Invoices_Orders_OrderId",
-                        column: x => x.OrderId,
-                        principalTable: "Orders",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 342, DateTimeKind.Local).AddTicks(3406), "Mutfak" },
-                    { 2, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 342, DateTimeKind.Local).AddTicks(3412), "Mobilya" },
-                    { 3, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 342, DateTimeKind.Local).AddTicks(3414), "Market" },
-                    { 4, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 342, DateTimeKind.Local).AddTicks(3415), "Aydınlatma" }
+                    { 1, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 121, DateTimeKind.Local).AddTicks(4323), "Mutfak" },
+                    { 2, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 121, DateTimeKind.Local).AddTicks(4331), "Mobilya" },
+                    { 3, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 121, DateTimeKind.Local).AddTicks(4332), "Market" },
+                    { 4, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 121, DateTimeKind.Local).AddTicks(4333), "Aydınlatma" }
                 });
 
             migrationBuilder.InsertData(
@@ -241,18 +216,18 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "Type" },
                 values: new object[,]
                 {
-                    { 1, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(9051), "Mağaza Çalışanı" },
-                    { 2, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(9058), "Mağaza Üyesi" }
+                    { 1, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(3471), "Mağaza Çalışanı" },
+                    { 2, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(3479), "Mağaza Üyesi" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Discounts",
-                columns: new[] { "Id", "CreatedBy", "CreatedOn", "DiscountRate", "DiscountType" },
+                columns: new[] { "Id", "CreatedBy", "CreatedOn", "Description", "DiscountRate", "DiscountType" },
                 values: new object[,]
                 {
-                    { 1, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 340, DateTimeKind.Local).AddTicks(4825), 30, "Yüzde" },
-                    { 2, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 340, DateTimeKind.Local).AddTicks(4830), 10, "Yüzde" },
-                    { 3, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 340, DateTimeKind.Local).AddTicks(4832), 5, "Yüzde" }
+                    { 1, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(9019), "Mağaza çalışanı için belirlenmiş indirim oranı", 30, "%" },
+                    { 2, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(9024), "Mağaza üyesi iiçin belirlenmiş indirim oranı", 10, "%" },
+                    { 3, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(9026), "Sadık müşteri  için belirlenmiş indirim oranı", 5, "%" }
                 });
 
             migrationBuilder.InsertData(
@@ -260,21 +235,21 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                 columns: new[] { "Id", "CreatedBy", "CreatedOn", "CustomerTypeId", "FirstName", "JoiningDate", "LastName" },
                 values: new object[,]
                 {
-                    { 1, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(5226), 1, "EVREN", new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(5233), "AKTAŞ" },
-                    { 2, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(5234), 2, "ECE", new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(5235), "DAĞDELEN" },
-                    { 3, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(5236), 1, "İBRAHİM", new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(5237), "AKIŞIK" },
-                    { 4, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(5238), 2, "GİZEM", new DateTime(2024, 2, 8, 17, 22, 4, 339, DateTimeKind.Local).AddTicks(5239), "KURTCUOĞLU" }
+                    { 1, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(162), 1, "EVREN", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(167), "AKTAŞ" },
+                    { 2, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(168), 2, "ECE", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(168), "DAĞDELEN" },
+                    { 3, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(169), 1, "İBRAHİM", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(170), "AKIŞIK" },
+                    { 4, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(171), 2, "GİZEM", new DateTime(2024, 2, 11, 18, 57, 53, 119, DateTimeKind.Local).AddTicks(172), "KURTCUOĞLU" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedOn", "Name", "Price" },
+                columns: new[] { "Id", "CategoryId", "CreatedBy", "CreatedOn", "Description", "Name", "Price", "StockQuantity" },
                 values: new object[,]
                 {
-                    { 1, 1, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 342, DateTimeKind.Local).AddTicks(542), "Gardırop", 3000m },
-                    { 2, 2, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 342, DateTimeKind.Local).AddTicks(547), "Fırın", 4000m },
-                    { 3, 3, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 342, DateTimeKind.Local).AddTicks(549), "Fıstık Ezmesi", 85m },
-                    { 4, 4, "EVREN AKTAŞ", new DateTime(2024, 2, 8, 17, 22, 4, 342, DateTimeKind.Local).AddTicks(550), "ModeLight Işıl 3'lü Avize", 4000m }
+                    { 1, 1, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 121, DateTimeKind.Local).AddTicks(1332), null, "Gardırop", 3000m, 10 },
+                    { 2, 2, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 121, DateTimeKind.Local).AddTicks(1338), null, "Fırın", 4000m, 10 },
+                    { 3, 3, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 121, DateTimeKind.Local).AddTicks(1340), null, "Fıstık Ezmesi", 85m, 10 },
+                    { 4, 4, "EVREN AKTAŞ", new DateTime(2024, 2, 11, 18, 57, 53, 121, DateTimeKind.Local).AddTicks(1342), null, "ModeLight Işıl 3'lü Avize", 4000m, 10 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -286,16 +261,6 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                 name: "IX_Customers_CustomerTypeId",
                 table: "Customers",
                 column: "CustomerTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Invoices_CustomerId",
-                table: "Invoices",
-                column: "CustomerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Invoices_OrderId",
-                table: "Invoices",
-                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_OrderId",
@@ -320,7 +285,7 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                 name: "CustomerDiscounts");
 
             migrationBuilder.DropTable(
-                name: "Invoices");
+                name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "OrderItems");
@@ -329,16 +294,13 @@ namespace ShopsRU.Persistence.Context.Migrations.SQL
                 name: "Discounts");
 
             migrationBuilder.DropTable(
-                name: "Customers");
+                name: "CustomerTypes");
 
             migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Products");
-
-            migrationBuilder.DropTable(
-                name: "CustomerTypes");
 
             migrationBuilder.DropTable(
                 name: "Categories");

@@ -2,7 +2,6 @@
 using ShopsRU.Application.Contract.Request.CustomerDiscount;
 using ShopsRU.Application.Contract.Response.Category;
 using ShopsRU.Application.Contract.Response.CustomerDiscount;
-using ShopsRU.Application.Contract.Response.Invoice;
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
 using ShopsRU.Application.Interfaces.UnitOfWork;
@@ -41,7 +40,7 @@ namespace ShopsRU.Persistence.Implementations.Services
             var customerDiscount = createCustomerDiscountRequest.MapToEntity();
             await _customerDiscountRepository.AddAsync(customerDiscount);
             await _unitOfWork.CommitAsync();
-            return ServiceDataResponse<DiscountResponse>.CreateServiceResponse(_resourceService, createCustomerDiscountRequest.MapToPaylod(customerDiscount), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
+            return ServiceDataResponse<DiscountResponse>.CreateServiceResponse(_resourceService, createCustomerDiscountRequest.MapToResponse(customerDiscount), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
     }
 }

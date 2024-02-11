@@ -12,7 +12,7 @@ namespace ShopsRU.Application.Contract.Request.Category
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public UpdateCategoryResponse MapToPaylod(ShopsRU.Domain.Entities.Category category)
+        public UpdateCategoryResponse MapToResponse(ShopsRU.Domain.Entities.Category category)
         {
             return new UpdateCategoryResponse { Id = category.Id, Name = category.Name, CreatedOn = category.CreatedOn };
         }

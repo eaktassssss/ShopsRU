@@ -22,7 +22,6 @@ namespace ShopsRU.Persistence.Context.EntityConfigurations
             builder.Property(x => x.FirstName).HasMaxLength(50);
             builder.Property(x => x.LastName).HasMaxLength(50);
             builder.HasOne(c => c.CustomerType).WithMany(p => p.Customers).HasForeignKey(p => p.CustomerTypeId);
-            builder.HasMany(c => c.Invoices).WithOne(p => p.Customer).HasForeignKey(p => p.CustomerId);
           
             #region Base Entity Configuration
             builder.Property(x => x.CreatedOn).HasDefaultValue(DateTime.Now);

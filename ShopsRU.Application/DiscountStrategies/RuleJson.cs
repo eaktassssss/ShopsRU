@@ -15,6 +15,5 @@ namespace ShopsRU.Application.DiscountStrategies
         public decimal FixedDiscountAmount { get; set; }
         public bool LoyalCustomerPriority { get; set; }
         public decimal LoyalCustomerDiscountRate { get; set; }
-
     }
 }

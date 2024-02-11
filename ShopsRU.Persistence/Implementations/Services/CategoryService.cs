@@ -34,7 +34,7 @@ namespace ShopsRU.Persistence.Implementations.Services
             var categoryExists = await _categoryRepository.GetSingleAsync(x => x.Name.Trim().ToLower() == createCategoryRequest.Name.Trim().ToLower());
             if (categoryExists != null)
             {
-                return ServiceDataResponse<CreateCategoryResponse>.CreateServiceResponse(_resourceService, createCategoryRequest.MapToPaylod(categoryExists), Domain.Enums.ResponseMessages.ALREADY_EXISTS);
+                return ServiceDataResponse<CreateCategoryResponse>.CreateServiceResponse(_resourceService, createCategoryRequest.MapToResponse(categoryExists), Domain.Enums.ResponseMessages.ALREADY_EXISTS);
 
 
             }
@@ -42,7 +42,7 @@ namespace ShopsRU.Persistence.Implementations.Services
             var category = createCategoryRequest.MapToEntity();
             await _categoryRepository.AddAsync(category);
             await _unitOfWork.CommitAsync();
-            return ServiceDataResponse<CreateCategoryResponse>.CreateServiceResponse(_resourceService, createCategoryRequest.MapToPaylod(category), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
+            return ServiceDataResponse<CreateCategoryResponse>.CreateServiceResponse(_resourceService, createCategoryRequest.MapToResponse(category), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
 
         public async Task<ServiceDataResponse<UpdateCategoryResponse>> UpdateAsync(UpdateCategoryRequest updateCategoryRequest)
@@ -59,7 +59,7 @@ namespace ShopsRU.Persistence.Implementations.Services
             category.Name = updateCategoryRequest.Name;
             await _categoryRepository.UpdateAsync(category);
            await _unitOfWork.CommitAsync();
-            return ServiceDataResponse<UpdateCategoryResponse>.CreateServiceResponse(_resourceService, updateCategoryRequest.MapToPaylod(category), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
+            return ServiceDataResponse<UpdateCategoryResponse>.CreateServiceResponse(_resourceService, updateCategoryRequest.MapToResponse(category), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
     }
 }

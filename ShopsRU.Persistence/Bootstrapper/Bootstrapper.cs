@@ -19,7 +19,7 @@ namespace ShopsRU.Persistence.Bootstrapper
         {
             #region Services
             services.AddDbContext<ShopsRUContext>(x => x.UseSqlServer(configuration.GetConnectionString("ShopsRUConString")));
-            services.AddScoped<IInvoiceService, InvoiceService>();
+         
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICustomerService, CustomerService>();
@@ -27,11 +27,11 @@ namespace ShopsRU.Persistence.Bootstrapper
             services.AddScoped<ICustomerDiscountService, CustomerDiscountService>();
             services.AddScoped<IResourceService, ResourceService>();
             services.AddScoped<IDiscountStrategy, DiscountStrategy>();
+            services.AddScoped<IDiscountService, DiscountService>();
 
             #endregion
             #region Repositories DI
             services.AddScoped<ICustomerTypeRepository, CustomerTypeRepository>();
-            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();

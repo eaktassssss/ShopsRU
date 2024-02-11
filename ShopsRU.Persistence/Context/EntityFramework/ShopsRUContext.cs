@@ -21,7 +21,6 @@ namespace ShopsRU.Persistence.Context.EntityFramework
         public DbSet<CustomerType> CustomerTypes { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<Invoice> Invoices { get; set; }
         public DbSet<Discount> Discounts { get; set; }
         public DbSet<CustomerDiscount> CustomerDiscounts { get; set; }
 

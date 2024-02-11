@@ -15,7 +15,7 @@ namespace ShopsRU.Application.Contract.Request.Order
         public DateTime OrderDate { get; set; }
         public int UserId { get; set; }
         public List<OrderItemRequest> OrderItemRequest { get; set; }
-        public CreateOrderResponse MapToPaylod(ShopsRU.Domain.Entities.Order order)
+        public CreateOrderResponse MapToResponse(ShopsRU.Domain.Entities.Order order)
         {
             return new CreateOrderResponse { OrderDate = order.OrderDate, OrderId = order.Id };
         }

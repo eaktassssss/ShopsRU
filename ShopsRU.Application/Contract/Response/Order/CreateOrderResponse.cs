@@ -12,7 +12,7 @@ namespace ShopsRU.Application.Contract.Response.Order
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }
 
-        public CreateOrderResponse MapToPaylod(ShopsRU.Domain.Entities.Order  order)
+        public CreateOrderResponse MapToResponse(ShopsRU.Domain.Entities.Order  order)
         {
             return  new CreateOrderResponse { OrderDate = order.OrderDate, OrderId = order.Id };
         }

@@ -2,7 +2,6 @@
 using ShopsRU.Application.Contract.Request.Category;
 using ShopsRU.Application.Contract.Request.Product;
 using ShopsRU.Application.Contract.Response.Category;
-using ShopsRU.Application.Contract.Response.Invoice;
 using ShopsRU.Application.Contract.Response.Product;
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
@@ -30,12 +29,12 @@ namespace ShopsRU.Persistence.Implementations.Services
             var productExists = await _productRepository.GetSingleAsync(x => x.Name.Trim().ToLower() == createProductRequest.Name.Trim().ToLower());
             if (productExists != null)
             {
-                return ServiceDataResponse<CreateProductResponse>.CreateServiceResponse(_resourceService, createProductRequest.MapToPaylod(productExists), Domain.Enums.ResponseMessages.ALREADY_EXISTS);
+                return ServiceDataResponse<CreateProductResponse>.CreateServiceResponse(_resourceService, createProductRequest.MapToResponse(productExists), Domain.Enums.ResponseMessages.ALREADY_EXISTS);
             }
             var product = createProductRequest.MapToEntity();
             await _productRepository.AddAsync(product);
             await _unitOfWork.CommitAsync();
-            return ServiceDataResponse<CreateProductResponse>.CreateServiceResponse(_resourceService, createProductRequest.MapToPaylod(product), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
+            return ServiceDataResponse<CreateProductResponse>.CreateServiceResponse(_resourceService, createProductRequest.MapToResponse(product), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
     }
 }

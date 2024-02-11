@@ -12,7 +12,7 @@ namespace ShopsRU.Application.Contract.Request.Product
         public string Name { get; set; }
         public decimal Price { get; set; }
         public int CategoryId { get; set; }
-        public CreateProductResponse MapToPaylod(Domain.Entities.Product product)
+        public CreateProductResponse MapToResponse(Domain.Entities.Product product)
         {
             return new CreateProductResponse
             {

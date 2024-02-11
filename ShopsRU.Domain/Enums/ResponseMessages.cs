@@ -14,6 +14,6 @@ namespace ShopsRU.Domain.Enums
         OPERATION_SUCCESS,
         ORDER_ITEM_NOT_FOUND,
         DATA_NOT_FOUND,
-        SYSTEM_MESSAGE
+        SYSTEM_MESSAGE, INSUFFICIENT_STOCK
     }
 }

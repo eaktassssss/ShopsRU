@@ -10,10 +10,7 @@ namespace ShopsRU.Domain.Entities
 {
     public class Customer : BaseEntity
     {
-        public Customer()
-        {
-            Invoices = new HashSet<Invoice>();
-        }
+        
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime JoiningDate { get; set; }
@@ -21,7 +18,7 @@ namespace ShopsRU.Domain.Entities
 
         public CustomerType CustomerType { get; set; }
 
-        public ICollection<Invoice> Invoices { get; set; }
+    
 
     }
 }
