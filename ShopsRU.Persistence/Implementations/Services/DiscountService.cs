@@ -60,11 +60,10 @@ namespace ShopsRU.Persistence.Implementations.Services
         }
         public void ApplyThresholdBasedExtraDiscount(decimal netAmount, DiscountStrategyRule discountStrategyRule, out decimal fixedDiscountAmount)
         {
-            // Net tutar ve ruleJson'a göre ekstra indirimi hesapla
             int thresholdDivisor = discountStrategyRule.RuleJson.FixedAmount;
             decimal discountPerThreshold = discountStrategyRule.RuleJson.FixedDiscountAmount;
             int numberOfThresholds = (int)(netAmount / thresholdDivisor);
-            fixedDiscountAmount = numberOfThresholds * discountPerThreshold; // Uygulanan ekstra indirim miktarı
+            fixedDiscountAmount = numberOfThresholds * discountPerThreshold; 
         }
         public async Task<DiscountStrategyRule> GetDiscountStrategyRulesAsync(int customerTypeId)
         {

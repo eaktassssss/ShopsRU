@@ -26,7 +26,6 @@ namespace ShopsRU.Persistence.Context.EntityConfigurations
             #region Base Entity Configuration
             builder.Property(x => x.CreatedOn).HasDefaultValue(DateTime.Now);
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
-
             #endregion
         }
     }

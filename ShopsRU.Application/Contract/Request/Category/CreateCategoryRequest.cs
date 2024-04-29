@@ -10,7 +10,6 @@ namespace ShopsRU.Application.Contract.Request.Category
     public class CreateCategoryRequest
     {
         public string Name { get; set; }
-
         public CreateCategoryResponse MapToResponse(ShopsRU.Domain.Entities.Category category)
         {
             return new CreateCategoryResponse { Id = category.Id, Name = category.Name, CreatedOn = category.CreatedOn };
