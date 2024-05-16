@@ -15,25 +15,22 @@ namespace ShopsRU.Persistence.Implementations.Services
     {
 
         readonly IProductRepository _productRepository;
-        readonly IUnitOfWork _unitOfWork;
         readonly IResourceService _resourceService;
 
-        public ProductService(IProductRepository productRepository, IUnitOfWork unitOfWork, IResourceService resourceService)
+        public ProductService(IProductRepository productRepository, IResourceService resourceService)
         {
             _productRepository = productRepository;
-            _unitOfWork = unitOfWork;
             _resourceService = resourceService;
         }
         public async Task<ServiceDataResponse<CreateProductResponse>> CreateAsync(CreateProductRequest createProductRequest)
         {
-            var productExists = await _productRepository.GetSingleAsync(x => x.Name.Trim().ToLower() == createProductRequest.Name.Trim().ToLower());
+            var productExists = await _productRepository.GetAsync(x => x.Name.Trim().ToLower() == createProductRequest.Name.Trim().ToLower());
             if (productExists != null)
             {
                 return ServiceDataResponse<CreateProductResponse>.CreateServiceResponse(_resourceService, createProductRequest.MapToResponse(productExists), Domain.Enums.ResponseMessages.ALREADY_EXISTS);
             }
             var product = createProductRequest.MapToEntity();
-            await _productRepository.AddAsync(product);
-            await _unitOfWork.CommitAsync();
+            await _productRepository.InsertAsync(product);
             return ServiceDataResponse<CreateProductResponse>.CreateServiceResponse(_resourceService, createProductRequest.MapToResponse(product), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
     }

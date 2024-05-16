@@ -11,7 +11,7 @@ namespace ShopsRU.Application.Contract.Request.Product
     {
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public int CategoryId { get; set; }
+        public string CategoryId { get; set; }
         public CreateProductResponse MapToResponse(Domain.Entities.Product product)
         {
             return new CreateProductResponse
@@ -20,7 +20,7 @@ namespace ShopsRU.Application.Contract.Request.Product
                 Name = product.Name,
                 Price = product.Price,
                 CategoryId = product.CategoryId,
-                CreatedOn = product.CreatedOn,
+                CreatedOn = product.CreatedDate,
                 
                 
             };

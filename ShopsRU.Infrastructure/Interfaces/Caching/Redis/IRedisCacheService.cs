@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShopsRU.Infrastructure.Implementations.Caching.Redis
+namespace ShopsRU.Infrastructure.Interfaces.Caching.Redis
 {
     public interface IRedisCacheService
     {

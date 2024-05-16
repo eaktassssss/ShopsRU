@@ -42,7 +42,7 @@ namespace ShopsRU.Persistence.Implementations.Services
         }
         public async Task<ServiceDataResponse<CreateOrderResponse>> CreateAsync(CreateOrderRequest createOrderRequest)
         {
-            var customer = await _customerRepository.GetSingleAsync(x => x.Id == createOrderRequest.CustomerId);
+            var customer = await _customerRepository.GetAsync(x => x.Id == createOrderRequest.CustomerId);
             if (customer == null)
             {
                 return ServiceDataResponse<CreateOrderResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
@@ -57,7 +57,7 @@ namespace ShopsRU.Persistence.Implementations.Services
             var order = createOrderRequest.MapToEntity();
             foreach (var item in createOrderRequest.OrderItemRequest)
             {
-                var product = await _productRepository.GetSingleAsync(x => x.Id == item.ProductId);
+                var product = await _productRepository.GetAsync(x => x.Id == item.ProductId);
 
                 if (!ProductStockCheck(product, item.Quantity))
                     return ServiceDataResponse<CreateOrderResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.INSUFFICIENT_STOCK);
@@ -66,7 +66,7 @@ namespace ShopsRU.Persistence.Implementations.Services
                 {
                     order.OrderItems.Add(GetOrderItems(product, order, item));
                     product.StockQuantity -= item.Quantity;
-                    await _productRepository.UpdateAsync(product);
+                    await _productRepository.UpdateAsync(product.Id, product);
                 }
             }
             order = await _discountService.ProductBasedApplyDiscountAsync(customer, order);

@@ -8,7 +8,7 @@ namespace ShopsRU.Application.Contract.Response.Customer
 {
     public  class GetSingleCustomerResponse
     {
-        public int Id { get; set; }
+        public  string Id{ get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime JoiningDate { get; set; }
@@ -17,7 +17,7 @@ namespace ShopsRU.Application.Contract.Response.Customer
 
         public GetSingleCustomerResponse MapToResponse(ShopsRU.Domain.Entities.Customer customer)
         {
-            return new GetSingleCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedOn = customer.CreatedOn };
+            return new GetSingleCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedOn = customer.CreatedDate };
         }
     }
 }

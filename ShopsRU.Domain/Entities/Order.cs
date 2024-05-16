@@ -14,7 +14,7 @@ namespace ShopsRU.Domain.Entities
         {
             OrderItems = new HashSet<OrderItem>();
         }
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
         public decimal TotalFixedDiscountAmount { get; set; }
         public decimal TotalOrderAmount { get; set; }

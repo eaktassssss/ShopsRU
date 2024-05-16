@@ -1,5 +1,6 @@
 ﻿using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Domain.Entities;
+using ShopsRU.Infrastructure.Configurations.Mongo;
 using ShopsRU.Persistence.Context.EntityFramework;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Persistence.Implementations.Repositories
 {
-    public class CustomerRepository : EfRepository<Customer>, ICustomerRepository
+    public class CustomerRepository : MongoRepository<Customer>, ICustomerRepository
     {
-        public CustomerRepository(ShopsRUContext ShopsRUContext) : base(ShopsRUContext)
+        public CustomerRepository(IMongoConfiguration options) : base(options)
         {
         }
     }

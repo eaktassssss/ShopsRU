@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Context\Migrations\**" />
+    <EmbeddedResource Remove="Context\Migrations\**" />
+    <None Remove="Context\Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.1">
@@ -14,16 +20,13 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="MongoDB.Driver" Version="2.25.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\ShopsRU.Application\ShopsRU.Application.csproj" />
     <ProjectReference Include="..\ShopsRU.Domain\ShopsRU.Domain.csproj" />
     <ProjectReference Include="..\ShopsRU.Infrastructure\ShopsRU.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Context\Migrations\SQL\" />
   </ItemGroup>
 
 </Project>

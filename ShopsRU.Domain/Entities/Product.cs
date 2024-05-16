@@ -7,18 +7,12 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Domain.Entities
 {
-    public class Product : BaseEntity
+    public class Product : MongoBaseEntity
     {
-        public Product()
-        {
-            OrderItems = new HashSet<OrderItem>();
-        }
         public int StockQuantity { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
-        public ICollection<OrderItem> OrderItems { get; set; }
+        public string CategoryId { get; set; }
     }
 }

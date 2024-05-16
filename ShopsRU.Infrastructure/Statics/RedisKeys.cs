@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Infrastructure.Statics
 {
-    public static class RedisCacheKeys
+    public static class RedisKeys
     {
         public static string CustomerCacheKey = "customers";
     }

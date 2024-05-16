@@ -8,17 +8,12 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Domain.Entities
 {
-    public class Customer : BaseEntity
+    public class Customer : MongoBaseEntity
     {
         
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime JoiningDate { get; set; }
         public int CustomerTypeId { get; set; }
-
-        public CustomerType CustomerType { get; set; }
-
-    
-
     }
 }

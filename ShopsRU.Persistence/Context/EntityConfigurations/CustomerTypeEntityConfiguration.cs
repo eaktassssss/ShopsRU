@@ -15,7 +15,7 @@ namespace ShopsRU.Persistence.Context.EntityConfigurations
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Type).IsRequired(true);
-            builder.HasMany(c => c.Customers).WithOne(p => p.CustomerType).HasForeignKey(p => p.CustomerTypeId);
+            //builder.HasMany(c => c.Customers).WithOne(p => p.CustomerType).HasForeignKey(p => p.CustomerTypeId);
             builder.HasMany(c => c.CustomerDiscounts).WithOne(p => p.CustomerType).HasForeignKey(p => p.CustomerTypeId);
             #region Base Entity Configuration
             builder.Property(x => x.CreatedOn).HasDefaultValue(DateTime.Now);

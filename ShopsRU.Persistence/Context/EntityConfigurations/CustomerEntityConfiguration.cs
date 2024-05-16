@@ -21,18 +21,18 @@ namespace ShopsRU.Persistence.Context.EntityConfigurations
             builder.Property(x => x.JoiningDate).IsRequired(true);
             builder.Property(x => x.FirstName).HasMaxLength(50);
             builder.Property(x => x.LastName).HasMaxLength(50);
-            builder.HasOne(c => c.CustomerType).WithMany(p => p.Customers).HasForeignKey(p => p.CustomerTypeId);
+            //builder.HasOne(c => c.CustomerType).WithMany(p => p.Customers).HasForeignKey(p => p.CustomerTypeId);
           
             #region Base Entity Configuration
-            builder.Property(x => x.CreatedOn).HasDefaultValue(DateTime.Now);
+            builder.Property(x => x.CreatedDate).HasDefaultValue(DateTime.Now);
             builder.Property(x => x.IsDeleted).HasDefaultValue(false);
             #endregion
 
             #region Seed Data
-            builder.HasData(new Customer() { Id = 1, FirstName = "EVREN", LastName = "AKTAŞ", CustomerTypeId = 1, JoiningDate = DateTime.Now }
-            , new Customer() { Id = 2, FirstName = "ECE", LastName = "DAĞDELEN", CustomerTypeId = 2, JoiningDate = DateTime.Now }
-            , new Customer() { Id = 3, FirstName = "İBRAHİM", LastName = "AKIŞIK", CustomerTypeId = 1, JoiningDate = DateTime.Now }
-            , new Customer() { Id = 4, FirstName = "GİZEM", LastName = "KURTCUOĞLU", CustomerTypeId = 2, JoiningDate = DateTime.Now });
+            //builder.HasData(new Customer() { Id = 1, FirstName = "EVREN", LastName = "AKTAŞ", CustomerTypeId = 1, JoiningDate = DateTime.Now }
+            //, new Customer() { Id = 2, FirstName = "ECE", LastName = "DAĞDELEN", CustomerTypeId = 2, JoiningDate = DateTime.Now }
+            //, new Customer() { Id = 3, FirstName = "İBRAHİM", LastName = "AKIŞIK", CustomerTypeId = 1, JoiningDate = DateTime.Now }
+            //, new Customer() { Id = 4, FirstName = "GİZEM", LastName = "KURTCUOĞLU", CustomerTypeId = 2, JoiningDate = DateTime.Now });
             #endregion
         }
     }

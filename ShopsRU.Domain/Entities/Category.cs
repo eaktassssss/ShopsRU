@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Domain.Entities
 {
-    public class Category : BaseEntity
+    public class Category : MongoBaseEntity
     {
         public Category()
         {

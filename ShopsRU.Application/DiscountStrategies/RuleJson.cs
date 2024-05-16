@@ -9,7 +9,7 @@ namespace ShopsRU.Application.DiscountStrategies
 {
     public class RuleJson
     {
-        public List<int> ExcludeCategories { get; set; }
+        public List<string> ExcludeCategories { get; set; }
         public int CustomerAgeYear { get; set; }
         public int FixedAmount { get; set; }
         public decimal FixedDiscountAmount { get; set; }

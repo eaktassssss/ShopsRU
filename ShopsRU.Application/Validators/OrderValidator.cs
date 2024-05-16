@@ -13,8 +13,8 @@ namespace ShopsRU.Application.Validators
     {
         public OrderValidator()
         {
-            RuleFor(order => order.CustomerId)
-                .GreaterThan(0).WithMessage("CustomerId must be a positive number.");
+            //RuleFor(order => order.CustomerId)
+            //    .GreaterThan(0).WithMessage("CustomerId must be a positive number.");
 
             RuleFor(order => order.OrderDate)
                 .NotEmpty().WithMessage("OrderDate cannot be empty.");

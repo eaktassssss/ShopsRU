@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Application.Interfaces.Repositories
 {
-    public  interface ICategoryRepository:IEfRepository<Category>
+    public interface ICategoryRepository : IMongoRepository<Category,string>
     {
     }
 }

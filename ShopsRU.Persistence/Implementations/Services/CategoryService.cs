@@ -10,7 +10,7 @@ using ShopsRU.Application.Interfaces.Services;
 using ShopsRU.Application.Interfaces.UnitOfWork;
 using ShopsRU.Application.Wrappers;
 using ShopsRU.Domain.Entities;
- 
+
 
 namespace ShopsRU.Persistence.Implementations.Services
 {
@@ -18,11 +18,9 @@ namespace ShopsRU.Persistence.Implementations.Services
     {
         ICategoryRepository _categoryRepository;
         IResourceService _resourceService;
-        readonly IUnitOfWork _unitOfWork;
-        public CategoryService(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork, IResourceService resourceService)
+        public CategoryService(ICategoryRepository categoryRepository, IResourceService resourceService)
         {
             _categoryRepository = categoryRepository;
-            _unitOfWork = unitOfWork;
             _resourceService = resourceService;
 
         }
@@ -31,17 +29,14 @@ namespace ShopsRU.Persistence.Implementations.Services
         public async Task<ServiceDataResponse<CreateCategoryResponse>> CreateAsync(CreateCategoryRequest createCategoryRequest)
         {
 
-            var categoryExists = await _categoryRepository.GetSingleAsync(x => x.Name.Trim().ToLower() == createCategoryRequest.Name.Trim().ToLower());
+            var categoryExists = await _categoryRepository.GetByIdAsync(createCategoryRequest.Name);
             if (categoryExists != null)
             {
                 return ServiceDataResponse<CreateCategoryResponse>.CreateServiceResponse(_resourceService, createCategoryRequest.MapToResponse(categoryExists), Domain.Enums.ResponseMessages.ALREADY_EXISTS);
-
-
             }
 
             var category = createCategoryRequest.MapToEntity();
-            await _categoryRepository.AddAsync(category);
-            await _unitOfWork.CommitAsync();
+            await _categoryRepository.InsertAsync(category);
             return ServiceDataResponse<CreateCategoryResponse>.CreateServiceResponse(_resourceService, createCategoryRequest.MapToResponse(category), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
 
@@ -51,14 +46,11 @@ namespace ShopsRU.Persistence.Implementations.Services
             var category = await _categoryRepository.GetByIdAsync(updateCategoryRequest.Id);
             if (category == null)
             {
-
-                return ServiceDataResponse<UpdateCategoryResponse>.CreateServiceResponse(_resourceService,Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
+                return ServiceDataResponse<UpdateCategoryResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
             }
 
-            category.Id = updateCategoryRequest.Id;
             category.Name = updateCategoryRequest.Name;
-            await _categoryRepository.UpdateAsync(category);
-           await _unitOfWork.CommitAsync();
+            await _categoryRepository.UpdateAsync(category.Id, category);
             return ServiceDataResponse<UpdateCategoryResponse>.CreateServiceResponse(_resourceService, updateCategoryRequest.MapToResponse(category), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
     }

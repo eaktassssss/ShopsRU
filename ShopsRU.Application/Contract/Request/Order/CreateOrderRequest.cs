@@ -11,7 +11,7 @@ namespace ShopsRU.Application.Contract.Request.Order
 {
     public class CreateOrderRequest
     {
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
         public int UserId { get; set; }
         public List<OrderItemRequest> OrderItemRequest { get; set; }

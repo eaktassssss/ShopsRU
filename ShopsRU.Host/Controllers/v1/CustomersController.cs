@@ -31,7 +31,7 @@ namespace ShopsRU.Host.Controllers.v1
         }
         [HttpGet]
         [Route("customer/{id}")]
-        public async Task<IActionResult> GetSingleAsync(int id)
+        public async Task<IActionResult> GetSingleAsync(string id)
         {
             var response = await _customerService.GetSingleAsync(id);
             return Ok(response);

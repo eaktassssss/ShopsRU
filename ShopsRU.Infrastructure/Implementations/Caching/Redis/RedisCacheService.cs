@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using ShopsRU.Infrastructure.Configurations.Caching.Redis;
-using ShopsRU.Infrastructure.Implementations.Caching.Redis;
+using ShopsRU.Infrastructure.Interfaces.Caching.Redis;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -9,9 +9,9 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace ShopsRU.Infrastructure.Interfaces.Caching.Redis
+namespace ShopsRU.Infrastructure.Implementations.Caching.Redis
 {
-    public  class RedisCacheService:IRedisCacheService
+    public class RedisCacheService : IRedisCacheService
     {
         private readonly RedisConfiguration _configurationMonitor;
         private readonly IDatabase _database;
@@ -59,7 +59,7 @@ namespace ShopsRU.Infrastructure.Interfaces.Caching.Redis
         public void SetCache<T>(string key, T value, DateTimeOffset expirationTime)
         {
             TimeSpan expirtyTime = expirationTime.DateTime.Subtract(DateTime.Now);
-            _database.StringSet(key, JsonSerializer.Serialize<T>(value), expirtyTime);
+            _database.StringSet(key, JsonSerializer.Serialize(value), expirtyTime);
         }
     }
 }

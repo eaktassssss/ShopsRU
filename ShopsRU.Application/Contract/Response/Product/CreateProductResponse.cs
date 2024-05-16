@@ -9,8 +9,8 @@ namespace ShopsRU.Application.Contract.Response.Product
 {
     public class CreateProductResponse
     {
-        public int Id { get; set; }
-        public int CategoryId { get; set; }
+        public string Id { get; set; }
+        public string CategoryId { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public DateTime CreatedOn { get; set; }

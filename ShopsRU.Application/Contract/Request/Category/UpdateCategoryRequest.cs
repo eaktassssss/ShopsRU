@@ -9,12 +9,12 @@ namespace ShopsRU.Application.Contract.Request.Category
 {
     public  class UpdateCategoryRequest
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
 
         public UpdateCategoryResponse MapToResponse(ShopsRU.Domain.Entities.Category category)
         {
-            return new UpdateCategoryResponse { Id = category.Id, Name = category.Name, CreatedOn = category.CreatedOn };
+            return new UpdateCategoryResponse { Id = category.Id, Name = category.Name, CreatedOn = category.CreatedDate };
         }
         public ShopsRU.Domain.Entities.Category MapToEntity()
         {
