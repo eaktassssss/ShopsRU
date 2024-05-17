@@ -68,6 +68,7 @@ Write a program in a programming language of your choice with test cases such th
 * C#
 * OpenTelemetry
 * Redis
+* MongoDB
 ### Getting Started
 
 1. Clone the repo
