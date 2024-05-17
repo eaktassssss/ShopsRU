@@ -13,11 +13,11 @@ namespace ShopsRU.Application.Contract.Response.Customer
         public string LastName { get; set; }
         public DateTime JoiningDate { get; set; }
         public int CustomerTypeId { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public GetSingleCustomerResponse MapToResponse(ShopsRU.Domain.Entities.Customer customer)
         {
-            return new GetSingleCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedOn = customer.CreatedDate };
+            return new GetSingleCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedDate = customer.CreatedDate };
         }
     }
 }

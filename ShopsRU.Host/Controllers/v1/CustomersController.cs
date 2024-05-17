@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopsRU.Application.Contract.Request.Category;
 using ShopsRU.Application.Contract.Request.Customer;
+using ShopsRU.Application.Contract.Request.Product;
 using ShopsRU.Application.Interfaces.Services;
+using ShopsRU.Persistence.Implementations.Services;
 
 namespace ShopsRU.Host.Controllers.v1
 {
@@ -39,6 +41,23 @@ namespace ShopsRU.Host.Controllers.v1
         public async Task<IActionResult> GetAllAsync()
         {
             var response = await _customerService.GetAllAsync();
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [Route("customer")]
+        public async Task<IActionResult> UpdateAsync(UpdateCustomerRequest  updateCustomerRequest)
+        {
+            var response = await _customerService.UpdateAsync(updateCustomerRequest);
+            return Ok(response);
+        }
+
+
+        [HttpDelete]
+        [Route("customer/{id}")]
+        public async Task<IActionResult> DeleteAsync(string id)
+        {
+            var response = await _customerService.DeleteAsync(id);
             return Ok(response);
         }
     }

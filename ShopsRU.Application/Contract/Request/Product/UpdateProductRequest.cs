@@ -7,27 +7,27 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Application.Contract.Request.Product
 {
-    public class CreateProductRequest
+    public class UpdateProductRequest
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
         public string CategoryId { get; set; }
-        public CreateProductResponse MapToResponse(Domain.Entities.Product product)
+        public UpdateProductResponse MapToResponse(Domain.Entities.Product product)
         {
-            return new CreateProductResponse
+            return new UpdateProductResponse
             {
                 Id = product.Id,
                 Name = product.Name,
                 Price = product.Price,
-                CategoryId = product.CategoryId,
-                CreatedDate = product.CreatedDate,
+                UpdatedDate = product.UpdatedDate,
             };
         }
-
         public Domain.Entities.Product MapToEntity()
         {
             return new Domain.Entities.Product()
             {
+                Id=this.Id,
                 Name = Name,
                 Price = Price,
                 CategoryId = CategoryId,

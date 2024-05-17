@@ -32,5 +32,28 @@ namespace ShopsRU.Persistence.Implementations.Services
             await _productRepository.InsertAsync(product);
             return ServiceDataResponse<CreateProductResponse>.CreateServiceResponse(_resourceService, createProductRequest.MapToResponse(product), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
+
+        public async Task<ServiceDataResponse<UpdateProductResponse>> DeleteAsync(string id)
+        {
+            var product = await _productRepository.GetByIdAsync(id);
+            if (product == null)
+                return ServiceDataResponse<UpdateProductResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
+
+
+            product.IsDeleted = true;
+            await _productRepository.UpdateAsync(product.Id, product);
+            return ServiceDataResponse<UpdateProductResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
+        }
+
+        public async Task<ServiceDataResponse<UpdateProductResponse>> UpdateAsync(UpdateProductRequest updateProductRequest)
+        {
+            var product = await _productRepository.GetByIdAsync(updateProductRequest.Id);
+            if (product == null)
+                return ServiceDataResponse<UpdateProductResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
+
+            var updateEntity = updateProductRequest.MapToEntity();
+            await _productRepository.UpdateAsync(product.Id, updateEntity);
+            return ServiceDataResponse<UpdateProductResponse>.CreateServiceResponse(_resourceService, updateProductRequest.MapToResponse(product), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
+        }
     }
 }

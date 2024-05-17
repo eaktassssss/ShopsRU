@@ -18,7 +18,7 @@ namespace ShopsRU.Application.Contract.Request.Customer
 
         public CreateCustomerResponse MapToResponse(ShopsRU.Domain.Entities.Customer customer)
         {
-            return new CreateCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedOn = customer.CreatedDate };
+            return new CreateCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedDate = customer.CreatedDate };
         }
         public ShopsRU.Domain.Entities.Customer MapToEntity()
         {

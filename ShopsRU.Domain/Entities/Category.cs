@@ -10,12 +10,7 @@ namespace ShopsRU.Domain.Entities
 {
     public class Category : MongoBaseEntity
     {
-        public Category()
-        {
-            Products = new HashSet<Product>();
-        }
+
         public string Name { get; set; }
-        public ICollection<Product> Products { get; set; }
-         
     }
 }

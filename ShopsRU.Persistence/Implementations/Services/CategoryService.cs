@@ -28,7 +28,7 @@ namespace ShopsRU.Persistence.Implementations.Services
         public async Task<ServiceDataResponse<CreateCategoryResponse>> CreateAsync(CreateCategoryRequest createCategoryRequest)
         {
 
-            var categoryExists = await _categoryRepository.GetByIdAsync(createCategoryRequest.Name);
+            var categoryExists = await _categoryRepository.GetAsync(x=> x.Name== createCategoryRequest.Name);
             if (categoryExists != null)
             {
                 return ServiceDataResponse<CreateCategoryResponse>.CreateServiceResponse(_resourceService, createCategoryRequest.MapToResponse(categoryExists), Domain.Enums.ResponseMessages.ALREADY_EXISTS);

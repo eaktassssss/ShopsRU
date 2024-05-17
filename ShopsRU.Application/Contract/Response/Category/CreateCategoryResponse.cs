@@ -10,7 +10,7 @@ namespace ShopsRU.Application.Contract.Response.Category
     public  class CreateCategoryResponse
     {
         public string Id { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedDate { get; set; }
         public string Name { get; set; }
 
 

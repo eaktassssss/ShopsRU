@@ -14,7 +14,7 @@ namespace ShopsRU.Application.Contract.Request.Category
 
         public UpdateCategoryResponse MapToResponse(ShopsRU.Domain.Entities.Category category)
         {
-            return new UpdateCategoryResponse { Id = category.Id, Name = category.Name, CreatedOn = category.CreatedDate };
+            return new UpdateCategoryResponse { Id = category.Id, Name = category.Name, CreatedDate = category.CreatedDate };
         }
         public ShopsRU.Domain.Entities.Category MapToEntity()
         {

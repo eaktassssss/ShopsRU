@@ -12,5 +12,8 @@ namespace ShopsRU.Application.Interfaces.Services
     public interface IProductService
     {
         Task<ServiceDataResponse<CreateProductResponse>> CreateAsync(CreateProductRequest createProductRequest);
+        Task<ServiceDataResponse<UpdateProductResponse>> UpdateAsync(UpdateProductRequest  updateProductRequest);
+
+        Task<ServiceDataResponse<UpdateProductResponse>> DeleteAsync(string id);
     }
 }
