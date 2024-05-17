@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Application.Interfaces.Repositories
 {
-    public  interface ICustomerDiscountRepository:IEfRepository<CustomerDiscount>
+    public  interface ICustomerDiscountRepository:IMongoRepository<CustomerDiscount,string>
     {
     }
 }

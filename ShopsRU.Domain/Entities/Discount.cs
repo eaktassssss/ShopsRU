@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Domain.Entities
 {
-    public class Discount : BaseEntity
+    public class Discount  
     {
         public Discount()
         {

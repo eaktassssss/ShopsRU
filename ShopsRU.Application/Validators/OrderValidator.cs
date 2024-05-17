@@ -19,10 +19,6 @@ namespace ShopsRU.Application.Validators
             RuleFor(order => order.OrderDate)
                 .NotEmpty().WithMessage("OrderDate cannot be empty.");
 
-
-
-            RuleFor(order => order.UserId)
-                .GreaterThan(0).WithMessage("UserId must be a positive number.");
         }
     }
 }

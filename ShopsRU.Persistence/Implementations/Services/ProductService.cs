@@ -5,7 +5,6 @@ using ShopsRU.Application.Contract.Response.Category;
 using ShopsRU.Application.Contract.Response.Product;
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
-using ShopsRU.Application.Interfaces.UnitOfWork;
 using ShopsRU.Application.Validators;
 using ShopsRU.Application.Wrappers;
 using ShopsRU.Domain.Entities;

@@ -12,11 +12,11 @@ namespace ShopsRU.Application.Validators
     {
         public DiscountValidator()
         {
-            RuleFor(discountCustomer => discountCustomer.DiscountId)
-                .GreaterThan(0).WithMessage("DiscountId must be a positive number.");
+            //RuleFor(discountCustomer => discountCustomer.DiscountId)
+            //    .GreaterThan(0).WithMessage("DiscountId must be a positive number.");
 
-            RuleFor(discountCustomer => discountCustomer.CustomerTypeId)
-                .GreaterThan(0).WithMessage("CustomerTypeId must be a positive number.");
+            //RuleFor(discountCustomer => discountCustomer.CustomerTypeId)
+            //    .GreaterThan(0).WithMessage("CustomerTypeId must be a positive number.");
         }
     }
 }

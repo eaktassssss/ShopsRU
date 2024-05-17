@@ -13,7 +13,6 @@ namespace ShopsRU.Application.Contract.Request.Order
     {
         public string CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
-        public int UserId { get; set; }
         public List<OrderItemRequest> OrderItemRequest { get; set; }
         public CreateOrderResponse MapToResponse(ShopsRU.Domain.Entities.Order order)
         {
@@ -27,8 +26,6 @@ namespace ShopsRU.Application.Contract.Request.Order
             {
                 CustomerId = this.CustomerId,
                 OrderDate = DateTime.Now,
-                UserId = this.UserId
-
             };
         }
     }

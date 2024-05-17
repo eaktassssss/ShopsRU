@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Domain.Entities
 {
-    public  class CustomerDiscount:BaseEntity
+    public  class CustomerDiscount:MongoBaseEntity 
     {
-        public int CustomerTypeId { get; set; }
-        public int DiscountId { get; set; }
+        public string CustomerTypeId { get; set; }
+        public string DiscountId { get; set; }
         public string RuleJson { get; set; }
         public CustomerType CustomerType { get; set; }
         public Discount Discounts { get; set; }

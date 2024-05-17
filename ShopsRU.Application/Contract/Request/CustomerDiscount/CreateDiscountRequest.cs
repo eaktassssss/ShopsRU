@@ -7,8 +7,8 @@ namespace ShopsRU.Application.Contract.Request.CustomerDiscount
 {
     public class CreateDiscountRequest
     {
-        public int DiscountId { get; set; }
-        public int CustomerTypeId { get; set; }
+        public string DiscountId { get; set; }
+        public string CustomerTypeId { get; set; }
 
         public RuleJson RuleJson { get; set; }
         public DiscountResponse MapToResponse(ShopsRU.Domain.Entities.CustomerDiscount customerDiscount)

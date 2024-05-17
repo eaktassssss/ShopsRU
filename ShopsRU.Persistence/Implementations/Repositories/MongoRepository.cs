@@ -15,7 +15,7 @@ namespace ShopsRU.Persistence.Implementations.Repositories
     public class MongoRepository<T> : IMongoRepository<T, string> where T : MongoBaseEntity, new()
     {
         IMongoCollection<T> _collection;
-        protected MongoRepository(IMongoConfiguration options)
+        public MongoRepository(IMongoConfiguration options)
         {
             var client = new MongoClient(options.ConnectionString);
             var db = client.GetDatabase(options.DatabaseName);
@@ -27,7 +27,6 @@ namespace ShopsRU.Persistence.Implementations.Repositories
             return predicate == null
        ? _collection.AsQueryable().AsEnumerable().ToList()
        : _collection.AsQueryable().Where(predicate).ToList();
-
         }
 
         public async Task<T> GetAsync(Expression<Func<T, bool>> predicate)

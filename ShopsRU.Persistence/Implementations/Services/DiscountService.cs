@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using ShopsRU.Application.DiscountStrategies;
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
@@ -28,22 +27,22 @@ namespace ShopsRU.Persistence.Implementations.Services
             decimal totalFixedDiscountAmount = 0;
             decimal totalDiscountAmount = 0;
             var discountStrategyRules = await GetDiscountStrategyRulesAsync(customer.CustomerTypeId);
-            foreach (var orderItem in order.OrderItems)
-            {
-                orderItem.IsDiscountApplied = false;
-                orderItem.LineDiscountAmount = 0;
+            //foreach (var orderItem in order.OrderItems)
+            //{
+            //    orderItem.IsDiscountApplied = false;
+            //    orderItem.LineDiscountAmount = 0;
 
-                if (discountStrategyRules.RuleJson != null)
-                {
-                    var isApplyDiscount = discountStrategyRules.RuleJson.ExcludeCategories.Any(x => x == orderItem.Product.CategoryId);
-                    if (!isApplyDiscount)
-                    {
-                        var discount = _discountStrategy.ApplyProductDiscountForCustomerType(discountStrategyRules, customer, orderItem.LineAmount);
-                        orderItem.IsDiscountApplied = true;
-                        orderItem.LineDiscountAmount = discount.DiscountAmount;
-                    }
-                }
-            }
+            //    if (discountStrategyRules.RuleJson != null)
+            //    {
+            //        var isApplyDiscount = discountStrategyRules.RuleJson.ExcludeCategories.Any(x => x == orderItem.Product.CategoryId);
+            //        if (!isApplyDiscount)
+            //        {
+            //            var discount = _discountStrategy.ApplyProductDiscountForCustomerType(discountStrategyRules, customer, orderItem.LineAmount);
+            //            orderItem.IsDiscountApplied = true;
+            //            orderItem.LineDiscountAmount = discount.DiscountAmount;
+            //        }
+            //    }
+            //}
             order.TotalOrderAmount = order.TotalOrderAmount = order.OrderItems.Sum(x => x.LineAmount);
             totalDiscountAmount = order.OrderItems.Sum(x => x.LineDiscountAmount);
             order.NetAmount = order.TotalOrderAmount - totalDiscountAmount;
@@ -67,21 +66,22 @@ namespace ShopsRU.Persistence.Implementations.Services
         }
         public async Task<DiscountStrategyRule> GetDiscountStrategyRulesAsync(int customerTypeId)
         {
-            var customerDiscount = await _customerDiscountRepository.GetAll().Include(x => x.Discounts).FirstOrDefaultAsync(x => x.CustomerTypeId == customerTypeId);
-            if (customerDiscount != null)
-            {
-                var discountStrategyRequest = new DiscountStrategyRule();
-                discountStrategyRequest.CustomerTypeId = customerDiscount.CustomerTypeId;
-                discountStrategyRequest.DiscountRate = customerDiscount.Discounts.DiscountRate;
-                discountStrategyRequest.DiscountType = customerDiscount.Discounts.DiscountType;
-                var ruleJson = JsonConvert.DeserializeObject<RuleJson>(customerDiscount.RuleJson);
-                discountStrategyRequest.RuleJson = new RuleJson() { CustomerAgeYear = ruleJson.CustomerAgeYear, ExcludeCategories = ruleJson.ExcludeCategories, FixedAmount = ruleJson.FixedAmount, FixedDiscountAmount = ruleJson.FixedDiscountAmount, LoyalCustomerDiscountRate = ruleJson.LoyalCustomerDiscountRate, LoyalCustomerPriority = ruleJson.LoyalCustomerPriority };
-                return discountStrategyRequest;
-            }
-            else
-            {
-                return new DiscountStrategyRule();
-            }
+            //var customerDiscount = await _customerDiscountRepository.GetAll().Include(x => x.Discounts).FirstOrDefaultAsync(x => x.CustomerTypeId == customerTypeId);
+            //if (customerDiscount != null)
+            //{
+            //    var discountStrategyRequest = new DiscountStrategyRule();
+            //    discountStrategyRequest.CustomerTypeId = customerDiscount.CustomerTypeId;
+            //    discountStrategyRequest.DiscountRate = customerDiscount.Discounts.DiscountRate;
+            //    discountStrategyRequest.DiscountType = customerDiscount.Discounts.DiscountType;
+            //    var ruleJson = JsonConvert.DeserializeObject<RuleJson>(customerDiscount.RuleJson);
+            //    discountStrategyRequest.RuleJson = new RuleJson() { CustomerAgeYear = ruleJson.CustomerAgeYear, ExcludeCategories = ruleJson.ExcludeCategories, FixedAmount = ruleJson.FixedAmount, FixedDiscountAmount = ruleJson.FixedDiscountAmount, LoyalCustomerDiscountRate = ruleJson.LoyalCustomerDiscountRate, LoyalCustomerPriority = ruleJson.LoyalCustomerPriority };
+            //    return discountStrategyRequest;
+            //}
+            //else
+            //{
+            //    return new DiscountStrategyRule();
+            //}
+            return new DiscountStrategyRule();
         }
     }
 }

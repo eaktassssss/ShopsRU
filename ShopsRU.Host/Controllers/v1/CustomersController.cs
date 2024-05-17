@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using ShopsRU.Application.Contract.Request.Category;
 using ShopsRU.Application.Contract.Request.Customer;
 using ShopsRU.Application.Interfaces.Services;
-using ShopsRU.Application.Interfaces.UnitOfWork;
-using ShopsRU.Persistence.Implementations.UnitOfWork;
 
 namespace ShopsRU.Host.Controllers.v1
 {

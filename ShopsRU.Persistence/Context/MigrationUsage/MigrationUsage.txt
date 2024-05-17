@@ -1,2 +1,0 @@
-Add-Migration initial -OutputDir F:\DevHub\ShopsRU\ShopsRU.Persistence\Context\Migrations\SQL
-update-database

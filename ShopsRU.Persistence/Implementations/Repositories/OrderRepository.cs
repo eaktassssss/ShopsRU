@@ -1,6 +1,6 @@
 ﻿using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Domain.Entities;
-using ShopsRU.Persistence.Context.EntityFramework;
+using ShopsRU.Infrastructure.Configurations.Mongo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Persistence.Implementations.Repositories
 {
-    public class OrderRepository : EfRepository<Order>, IOrderRepository
+    public class OrderRepository : MongoRepository<Order>, IOrderRepository
     {
-        public OrderRepository(ShopsRUContext ShopsRUContext) : base(ShopsRUContext)
+        public OrderRepository(IMongoConfiguration options) : base(options)
         {
         }
     }

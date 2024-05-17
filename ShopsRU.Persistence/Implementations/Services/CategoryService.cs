@@ -7,7 +7,6 @@ using ShopsRU.Application.Contract.Response.CustomerDiscount;
 using ShopsRU.Application.Contract.Response.Product;
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
-using ShopsRU.Application.Interfaces.UnitOfWork;
 using ShopsRU.Application.Wrappers;
 using ShopsRU.Domain.Entities;
 

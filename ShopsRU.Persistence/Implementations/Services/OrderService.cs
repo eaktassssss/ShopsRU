@@ -1,6 +1,4 @@
 ﻿
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using Newtonsoft.Json;
 using ShopsRU.Application.Contract.Request.Customer;
 using ShopsRU.Application.Contract.Request.Order;
@@ -10,7 +8,6 @@ using ShopsRU.Application.Contract.Response.Order;
 using ShopsRU.Application.DiscountStrategies;
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
-using ShopsRU.Application.Interfaces.UnitOfWork;
 using ShopsRU.Application.Wrappers;
 using ShopsRU.Domain.Entities;
 using ShopsRU.Persistence.Implementations.Repositories;
@@ -25,15 +22,13 @@ namespace ShopsRU.Persistence.Implementations.Services
         readonly IProductRepository _productRepository;
         readonly IOrderRepository _orderRepository;
         readonly IResourceService _resourceService;
-        readonly IUnitOfWork _unitOfWork;
         readonly ICustomerRepository _customerRepository;
         readonly ICustomerDiscountRepository _customerDiscountRepository;
         IDiscountService _discountService;
-        public OrderService(IOrderRepository orderRepository, IProductRepository productRepository, IUnitOfWork unitOfWork, ICustomerRepository customerRepository, IResourceService resourceService, ICustomerDiscountRepository customerDiscountRepository, IDiscountStrategy discountStrategy, IDiscountService discountService)
+        public OrderService(IOrderRepository orderRepository, IProductRepository productRepository, ICustomerRepository customerRepository, IResourceService resourceService, ICustomerDiscountRepository customerDiscountRepository, IDiscountStrategy discountStrategy, IDiscountService discountService)
         {
             _orderRepository = orderRepository;
             _productRepository = productRepository;
-            _unitOfWork = unitOfWork;
             _customerRepository = customerRepository;
             _resourceService = resourceService;
             _customerDiscountRepository = customerDiscountRepository;
@@ -70,8 +65,7 @@ namespace ShopsRU.Persistence.Implementations.Services
                 }
             }
             order = await _discountService.ProductBasedApplyDiscountAsync(customer, order);
-            await _orderRepository.AddAsync(order);
-            await _unitOfWork.CommitAsync();
+            await _orderRepository.InsertAsync(order);
             return ServiceDataResponse<CreateOrderResponse>.CreateServiceResponse(_resourceService, createOrderRequest.MapToResponse(order), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
         private bool ProductStockCheck(Product product, int quantity)
@@ -86,11 +80,11 @@ namespace ShopsRU.Persistence.Implementations.Services
             var orderItem = new OrderItem();
             orderItem.ProductId = product.Id;
             orderItem.UnitPrice = product.Price;
-            orderItem.OrderId = order.Id;
+            orderItem.Id = order.Id;
             orderItem.Quantity = orderItemRequest.Quantity;
             orderItem.LineAmount = product.Price * orderItemRequest.Quantity;
             orderItem.LineDiscountAmount = 0;
-            orderItem.Product = product;
+            //orderItem.Product = product;
             return orderItem;
         }
 

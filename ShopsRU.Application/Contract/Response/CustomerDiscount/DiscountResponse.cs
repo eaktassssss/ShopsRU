@@ -10,10 +10,9 @@ namespace ShopsRU.Application.Contract.Response.CustomerDiscount
 {
     public  class DiscountResponse
     {
-        public int Id { get; set; }
-        public int DiscountId { get; set; }
-        public int CustomerTypeId { get; set; }
-
+        public string Id { get; set; }
+        public string DiscountId { get; set; }
+        public string CustomerTypeId { get; set; }
         public RuleJson RuleJson { get; set; }
     }
 

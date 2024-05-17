@@ -3,7 +3,6 @@ using ShopsRU.Application.Contract.Response.Category;
 using ShopsRU.Application.Contract.Response.Customer;
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
-using ShopsRU.Application.Interfaces.UnitOfWork;
 using ShopsRU.Application.Wrappers;
 using ShopsRU.Domain.Entities;
 using ShopsRU.Domain.Enums;

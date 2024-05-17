@@ -2,7 +2,6 @@
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Domain.Entities;
 using ShopsRU.Infrastructure.Configurations.Mongo;
-using ShopsRU.Persistence.Context.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
