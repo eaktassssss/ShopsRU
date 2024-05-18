@@ -29,16 +29,13 @@ namespace ShopsRU.Persistence.Implementations.Services
             _resourceService = resourceService;
             _redisCacheService = redisCacheService;
         }
-        public async Task<ServiceDataResponse<CreateCustomerResponse>> CreateAsync(CreateCustomerRequest createCustomerRequest)
+        public async Task<ServiceResponse> CreateAsync(CreateCustomerRequest createCustomerRequest)
         {
             var customer = createCustomerRequest.MapToEntity();
-            await _customerRepository.InsertAsync(customer);
+            await _customerRepository.InsertOneAsync(customer);
             _redisCacheService.RemoveCache(RedisKeys.CustomerCacheKey);
-            return ServiceDataResponse<CreateCustomerResponse>.CreateServiceResponse(_resourceService, createCustomerRequest.MapToResponse(customer), ResponseMessages.OPERATION_SUCCESS);
+            return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.OPERATION_SUCCESS);
         }
-
-     
-
         public async Task<ServiceDataResponse<List<GetAllCustomerResponse>>> GetAllAsync()
         {
             var customersCacheData = _redisCacheService.GetCache<List<GetAllCustomerResponse>>(RedisKeys.CustomerCacheKey);
@@ -80,30 +77,25 @@ namespace ShopsRU.Persistence.Implementations.Services
             var customerResponse = new GetSingleCustomerResponse { Id = customer.Id, FirstName = customer.FirstName, LastName = customer.LastName, JoiningDate = customer.JoiningDate, CustomerTypeId = customer.CustomerTypeId, CreatedDate = customer.CreatedDate };
             return ServiceDataResponse<GetSingleCustomerResponse>.CreateServiceResponse(_resourceService, getSingleCustomerResponse.MapToResponse(customer), ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
         }
-
-     
-
-        public async Task<ServiceDataResponse<UpdateCustomerResponse>> DeleteAsync(string id)
+        public async Task<ServiceResponse> DeleteAsync(string id)
         {
             var customer = await _customerRepository.GetByIdAsync(id);
             if (customer == null)
-                return ServiceDataResponse<UpdateCustomerResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
+                return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.DATA_NOT_FOUND);
 
 
-            customer.IsDeleted = true;
-            await _customerRepository.UpdateAsync(customer.Id, customer);
-            return ServiceDataResponse<UpdateCustomerResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
+            await _customerRepository.FindOneAndReplaceAsync(customer.Id, customer);
+            return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.OPERATION_SUCCESS);
         }
-
-        public async Task<ServiceDataResponse<UpdateCustomerResponse>> UpdateAsync(UpdateCustomerRequest updateCustomerRequest)
+        public async Task<ServiceResponse> UpdateAsync(UpdateCustomerRequest updateCustomerRequest)
         {
             var customer = await _customerRepository.GetByIdAsync(updateCustomerRequest.Id);
             if (customer == null)
-                return ServiceDataResponse<UpdateCustomerResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
+                return ServiceResponse.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
 
             var updateEntity = updateCustomerRequest.MapToEntity();
-            await _customerRepository.UpdateAsync(customer.Id, updateEntity);
-            return ServiceDataResponse<UpdateCustomerResponse>.CreateServiceResponse(_resourceService, updateCustomerRequest.MapToResponse(updateEntity), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
+            await _customerRepository.FindOneAndReplaceAsync(customer.Id, updateEntity);
+            return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.OPERATION_SUCCESS); ;
         }
     }
 }

@@ -6,6 +6,6 @@ namespace ShopsRU.Application.Interfaces.Services
 {
     public  interface ICustomerDiscountService
     {
-        Task<ServiceDataResponse<DiscountResponse>> CreateAsync(CreateDiscountRequest  customerDiscountRequest);
+        Task<ServiceResponse> CreateAsync(CreateDiscountRequest  customerDiscountRequest);
     }
 }

@@ -6,6 +6,7 @@ using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
 using ShopsRU.Application.Wrappers;
 using ShopsRU.Domain.Entities;
+using ShopsRU.Domain.Enums;
 
 namespace ShopsRU.Persistence.Implementations.Services
 {
@@ -20,23 +21,23 @@ namespace ShopsRU.Persistence.Implementations.Services
             _customerTypeRepository = customerTypeRepository;
             _resourceService = resourceService;
         }
-        public async Task<ServiceDataResponse<DiscountResponse>> CreateAsync(CreateDiscountRequest createCustomerDiscountRequest)
+        public async Task<ServiceResponse> CreateAsync(CreateDiscountRequest createCustomerDiscountRequest)
         {
 
             var customerType = await _customerTypeRepository.GetByIdAsync(createCustomerDiscountRequest.CustomerTypeId);
             if (customerType == null)
             {
-                return ServiceDataResponse<DiscountResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
+                return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.DATA_NOT_FOUND);
             }
             var customerDiscountExists = await _customerDiscountRepository.GetAsync(x => x.CustomerTypeId == createCustomerDiscountRequest.CustomerTypeId && x.IsDeleted == false);
             if (customerDiscountExists != null)
             {
-                return ServiceDataResponse<DiscountResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.ALREADY_EXISTS);
+                return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.ALREADY_EXISTS);
             }
 
             var customerDiscount = createCustomerDiscountRequest.MapToEntity();
-            await _customerDiscountRepository.InsertAsync(customerDiscount);
-            return ServiceDataResponse<DiscountResponse>.CreateServiceResponse(_resourceService, createCustomerDiscountRequest.MapToResponse(customerDiscount), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
+            await _customerDiscountRepository.InsertOneAsync(customerDiscount);
+            return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.OPERATION_SUCCESS);
         }
     }
 }

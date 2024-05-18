@@ -13,8 +13,8 @@ namespace ShopsRU.Application.Interfaces.Services
 {
     public  interface ICategoryService
     {
-        Task<ServiceDataResponse<CreateCategoryResponse>> CreateAsync(CreateCategoryRequest createCategoryRequest);
+        Task<ServiceResponse> CreateAsync(CreateCategoryRequest createCategoryRequest);
 
-        Task<ServiceDataResponse<UpdateCategoryResponse>> UpdateAsync(UpdateCategoryRequest updateCategoryRequest);
+        Task<ServiceResponse> UpdateAsync(UpdateCategoryRequest updateCategoryRequest);
     }
 }

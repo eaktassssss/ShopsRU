@@ -13,12 +13,12 @@ namespace ShopsRU.Application.Interfaces.Services
 {
     public  interface ICustomerService
     {
-        Task<ServiceDataResponse<CreateCustomerResponse>> CreateAsync(CreateCustomerRequest  createCustomerRequest);
+        Task<ServiceResponse> CreateAsync(CreateCustomerRequest  createCustomerRequest);
         Task<ServiceDataResponse<GetSingleCustomerResponse>> GetSingleAsync(string id);
         Task<ServiceDataResponse<List<GetAllCustomerResponse>>> GetAllAsync();
 
-        Task<ServiceDataResponse<UpdateCustomerResponse>> UpdateAsync(UpdateCustomerRequest  updateCustomerRequest);
+        Task<ServiceResponse> UpdateAsync(UpdateCustomerRequest  updateCustomerRequest);
 
-        Task<ServiceDataResponse<UpdateCustomerResponse>> DeleteAsync(string id);
+        Task<ServiceResponse> DeleteAsync(string id);
     }
 }

@@ -61,11 +61,11 @@ namespace ShopsRU.Persistence.Implementations.Services
                 {
                     order.OrderItems.Add(GetOrderItems(product, order, item));
                     product.StockQuantity -= item.Quantity;
-                    await _productRepository.UpdateAsync(product.Id, product);
+                    await _productRepository.FindOneAndReplaceAsync(product.Id, product);
                 }
             }
             order = await _discountService.ProductBasedApplyDiscountAsync(customer, order);
-            await _orderRepository.InsertAsync(order);
+            await _orderRepository.InsertOneAsync(order);
             return ServiceDataResponse<CreateOrderResponse>.CreateServiceResponse(_resourceService, createOrderRequest.MapToResponse(order), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
         }
         private bool ProductStockCheck(Product product, int quantity)

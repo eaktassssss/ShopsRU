@@ -9,7 +9,7 @@ using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
 using ShopsRU.Application.Wrappers;
 using ShopsRU.Domain.Entities;
-
+using ShopsRU.Domain.Enums;
 
 namespace ShopsRU.Persistence.Implementations.Services
 {
@@ -21,36 +21,30 @@ namespace ShopsRU.Persistence.Implementations.Services
         {
             _categoryRepository = categoryRepository;
             _resourceService = resourceService;
-
         }
-
-
-        public async Task<ServiceDataResponse<CreateCategoryResponse>> CreateAsync(CreateCategoryRequest createCategoryRequest)
+        public async Task<ServiceResponse> CreateAsync(CreateCategoryRequest createCategoryRequest)
         {
-
-            var categoryExists = await _categoryRepository.GetAsync(x=> x.Name== createCategoryRequest.Name);
+            var categoryExists = await _categoryRepository.GetAsync(x => x.Name == createCategoryRequest.Name);
             if (categoryExists != null)
             {
-                return ServiceDataResponse<CreateCategoryResponse>.CreateServiceResponse(_resourceService, createCategoryRequest.MapToResponse(categoryExists), Domain.Enums.ResponseMessages.ALREADY_EXISTS);
+                return ServiceResponse.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.ALREADY_EXISTS);
             }
-
             var category = createCategoryRequest.MapToEntity();
-            await _categoryRepository.InsertAsync(category);
-            return ServiceDataResponse<CreateCategoryResponse>.CreateServiceResponse(_resourceService, createCategoryRequest.MapToResponse(category), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
+            await _categoryRepository.InsertOneAsync(category);
+            return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.OPERATION_SUCCESS);
         }
 
-        public async Task<ServiceDataResponse<UpdateCategoryResponse>> UpdateAsync(UpdateCategoryRequest updateCategoryRequest)
+        public async Task<ServiceResponse> UpdateAsync(UpdateCategoryRequest updateCategoryRequest)
         {
 
             var category = await _categoryRepository.GetByIdAsync(updateCategoryRequest.Id);
             if (category == null)
             {
-                return ServiceDataResponse<UpdateCategoryResponse>.CreateServiceResponse(_resourceService, Domain.Enums.ResponseMessages.DATA_NOT_FOUND);
+                return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.DATA_NOT_FOUND);
             }
-
             category.Name = updateCategoryRequest.Name;
-            await _categoryRepository.UpdateAsync(category.Id, category);
-            return ServiceDataResponse<UpdateCategoryResponse>.CreateServiceResponse(_resourceService, updateCategoryRequest.MapToResponse(category), Domain.Enums.ResponseMessages.OPERATION_SUCCESS);
+            await _categoryRepository.FindOneAndReplaceAsync(category.Id, category);
+            return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.OPERATION_SUCCESS);
         }
     }
 }
