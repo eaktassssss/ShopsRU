@@ -31,6 +31,14 @@ namespace ShopsRU.Host.Controllers.v1
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("product")]
+        public async Task<IActionResult> SearchAsync([FromQuery] SearchProductRequest searchProductRequest)
+        {
+            var response = await _productService.SearchAsync(searchProductRequest);
+            return Ok(response);
+        }
+
 
         [HttpPost]
         [Route("category")]

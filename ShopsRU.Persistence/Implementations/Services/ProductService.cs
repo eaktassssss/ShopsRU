@@ -1,14 +1,13 @@
-﻿using FluentValidation;
-using ShopsRU.Application.Contract.Request.Category;
-using ShopsRU.Application.Contract.Request.Product;
-using ShopsRU.Application.Contract.Response.Category;
+﻿using ShopsRU.Application.Contract.Request.Product;
 using ShopsRU.Application.Contract.Response.Product;
 using ShopsRU.Application.Interfaces.Repositories;
 using ShopsRU.Application.Interfaces.Services;
-using ShopsRU.Application.Validators;
 using ShopsRU.Application.Wrappers;
 using ShopsRU.Domain.Entities;
 using ShopsRU.Domain.Enums;
+using ShopsRU.Persistence.Extensions;
+using System.Linq.Expressions;
+using System.Linq;
 
 namespace ShopsRU.Persistence.Implementations.Services
 {
@@ -43,6 +42,20 @@ namespace ShopsRU.Persistence.Implementations.Services
             await _productRepository.FindOneAndUpdateAsync(product);
             return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.OPERATION_SUCCESS);
         }
+
+        public async Task<ServiceDataResponse<List<SearchProductResponse>>> SearchAsync(SearchProductRequest searchProductRequest)
+        {
+            Expression<Func<Product, bool>> filter;
+            filter = x => !x.IsDeleted;
+            if (!string.IsNullOrEmpty(searchProductRequest.SearchText))
+                filter = filter.AndAlso(x => x.Name.ToLower().Contains(searchProductRequest.SearchText.ToLower()));
+
+
+            var paginatedData = await _productRepository.GetPaginatedAsync(filter, searchProductRequest.Page, searchProductRequest.PageSize);
+            var activeProductsResponse = searchProductRequest.MapToResponse(paginatedData);
+            return ServiceDataResponse<List<SearchProductResponse>>.CreateServiceResponse(_resourceService, activeProductsResponse, ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
+        }
+
         public async Task<ServiceResponse> UpdateAsync(UpdateProductRequest updateProductRequest)
         {
             var product = await _productRepository.GetByIdAsync(updateProductRequest.Id);

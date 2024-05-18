@@ -18,8 +18,8 @@ namespace ShopsRU.Host.Controllers.v1
         public CustomersController(ICustomerService customerService)
         {
             _customerService = customerService;
-          
-            
+
+
         }
         [HttpPost]
         [Route("customer")]
@@ -36,17 +36,9 @@ namespace ShopsRU.Host.Controllers.v1
             var response = await _customerService.GetSingleAsync(id);
             return Ok(response);
         }
-        [HttpGet]
-        [Route("customer")]
-        public async Task<IActionResult> GetAllAsync()
-        {
-            var response = await _customerService.GetAllAsync();
-            return Ok(response);
-        }
-
         [HttpPut]
         [Route("customer")]
-        public async Task<IActionResult> UpdateAsync(UpdateCustomerRequest  updateCustomerRequest)
+        public async Task<IActionResult> UpdateAsync(UpdateCustomerRequest updateCustomerRequest)
         {
             var response = await _customerService.UpdateAsync(updateCustomerRequest);
             return Ok(response);
@@ -58,6 +50,16 @@ namespace ShopsRU.Host.Controllers.v1
         public async Task<IActionResult> DeleteAsync(string id)
         {
             var response = await _customerService.DeleteAsync(id);
+            return Ok(response);
+        }
+
+
+
+        [HttpGet]
+        [Route("customer")]
+        public async Task<IActionResult> SearchAsync([FromQuery] SearchCustomerRequest searchCustomerRequest)
+        {
+            var response = await _customerService.SearchAsync(searchCustomerRequest);
             return Ok(response);
         }
     }

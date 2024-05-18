@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShopsRU.Application.Contract.Response.Customer
 {
-    public class GetAllCustomerResponse
+    public class SearchCustomerResponse
     {
         public string Id { get; set; }
         public string FirstName { get; set; }

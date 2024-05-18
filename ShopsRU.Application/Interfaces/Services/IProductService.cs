@@ -1,4 +1,6 @@
-﻿using ShopsRU.Application.Contract.Request.Product;
+﻿using ShopsRU.Application.Contract.Request.Customer;
+using ShopsRU.Application.Contract.Request.Product;
+using ShopsRU.Application.Contract.Response.Customer;
 using ShopsRU.Application.Contract.Response.Product;
 using ShopsRU.Application.Wrappers;
 using System;
@@ -12,7 +14,8 @@ namespace ShopsRU.Application.Interfaces.Services
     public interface IProductService
     {
         Task<ServiceResponse> CreateAsync(CreateProductRequest createProductRequest);
-        Task<ServiceResponse> UpdateAsync(UpdateProductRequest  updateProductRequest);
+        Task<ServiceResponse> UpdateAsync(UpdateProductRequest updateProductRequest);
         Task<ServiceResponse> DeleteAsync(string id);
+        Task<ServiceDataResponse<List<SearchProductResponse>>> SearchAsync(SearchProductRequest searchProductRequest);
     }
 }

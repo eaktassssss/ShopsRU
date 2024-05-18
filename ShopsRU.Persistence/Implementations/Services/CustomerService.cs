@@ -10,7 +10,9 @@ using ShopsRU.Domain.Entities;
 using ShopsRU.Domain.Enums;
 using ShopsRU.Infrastructure.Interfaces.Caching.Redis;
 using ShopsRU.Infrastructure.Statics;
+using ShopsRU.Persistence.Extensions;
 using ShopsRU.Persistence.Implementations.Repositories;
+using System.Linq.Expressions;
 
 namespace ShopsRU.Persistence.Implementations.Services
 {
@@ -21,48 +23,18 @@ namespace ShopsRU.Persistence.Implementations.Services
         ICustomerRepository _customerRepository;
 
         IResourceService _resourceService;
-        IRedisCacheService _redisCacheService;
-
-        public CustomerService(ICustomerRepository customerRepository, IResourceService resourceService, IRedisCacheService redisCacheService)
+        public CustomerService(ICustomerRepository customerRepository, IResourceService resourceService)
         {
             _customerRepository = customerRepository;
             _resourceService = resourceService;
-            _redisCacheService = redisCacheService;
+
         }
         public async Task<ServiceResponse> CreateAsync(CreateCustomerRequest createCustomerRequest)
         {
             var customer = createCustomerRequest.MapToEntity();
             await _customerRepository.InsertOneAsync(customer);
-            _redisCacheService.RemoveCache(RedisKeys.CustomerCacheKey);
+
             return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.OPERATION_SUCCESS);
-        }
-        public async Task<ServiceDataResponse<List<GetAllCustomerResponse>>> GetAllAsync()
-        {
-            var customersCacheData = _redisCacheService.GetCache<List<GetAllCustomerResponse>>(RedisKeys.CustomerCacheKey);
-            if (customersCacheData == null)
-            {
-                var customers = await _customerRepository.GetAll();
-                var customerData = customers.Where(x => x.IsDeleted == false).Select(c => new GetAllCustomerResponse()
-                {
-                    Id = c.Id,
-                    FirstName = c.FirstName,
-                    LastName = c.LastName,
-                }).ToList();
-                if (customers.Any())
-                {
-                    var cacheTime = DateTimeOffset.Now.DateTime.AddMinutes(30);
-                    _redisCacheService.SetCache<List<GetAllCustomerResponse>>(RedisKeys.CustomerCacheKey, customerData, cacheTime);
-                    return ServiceDataResponse<List<GetAllCustomerResponse>>.CreateServiceResponse(_resourceService, customerData, ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
-                }
-                else
-                {
-                    return ServiceDataResponse<List<GetAllCustomerResponse>>.CreateServiceResponse(_resourceService, ResponseMessages.DATA_NOT_FOUND);
-                }
-            }
-            else
-            {
-                return ServiceDataResponse<List<GetAllCustomerResponse>>.CreateServiceResponse(_resourceService, customersCacheData, ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
-            }
         }
 
         public async Task<ServiceDataResponse<GetSingleCustomerResponse>> GetSingleAsync(string id)
@@ -96,6 +68,20 @@ namespace ShopsRU.Persistence.Implementations.Services
             var updateEntity = updateCustomerRequest.MapToEntity();
             await _customerRepository.FindOneAndReplaceAsync(customer.Id, updateEntity);
             return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.OPERATION_SUCCESS); ;
+        }
+
+        public async Task<ServiceDataResponse<List<SearchCustomerResponse>>> SearchAsync(SearchCustomerRequest searchCustomerRequest)
+        {
+            Expression<Func<Customer, bool>> filter;
+            filter = x => !x.IsDeleted;
+            if (!string.IsNullOrEmpty(searchCustomerRequest.SearchText))
+                filter = filter.AndAlso(x => x.FirstName.ToLower().Contains(searchCustomerRequest.SearchText.ToLower()));
+
+
+            var paginatedData = await _customerRepository.GetPaginatedAsync(filter, searchCustomerRequest.Page, searchCustomerRequest.PageSize);
+            var activeCustomersResponse = searchCustomerRequest.MapToResponse(paginatedData);
+
+            return ServiceDataResponse<List<SearchCustomerResponse>>.CreateServiceResponse(_resourceService, activeCustomersResponse, ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
         }
     }
 }
