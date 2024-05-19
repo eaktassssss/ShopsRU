@@ -13,7 +13,6 @@ namespace ShopsRU.Persistence.Implementations.Services
 {
     public class ProductService : IProductService
     {
-
         readonly IProductRepository _productRepository;
         readonly IResourceService _resourceService;
         public ProductService(IProductRepository productRepository, IResourceService resourceService)
@@ -42,7 +41,6 @@ namespace ShopsRU.Persistence.Implementations.Services
             await _productRepository.FindOneAndUpdateAsync(product);
             return ServiceResponse.CreateServiceResponse(_resourceService, ResponseMessages.OPERATION_SUCCESS);
         }
-
         public async Task<ServiceDataResponse<List<SearchProductResponse>>> SearchAsync(SearchProductRequest searchProductRequest)
         {
             Expression<Func<Product, bool>> filter;
@@ -55,7 +53,6 @@ namespace ShopsRU.Persistence.Implementations.Services
             var activeProductsResponse = searchProductRequest.MapToResponse(paginatedData);
             return ServiceDataResponse<List<SearchProductResponse>>.CreateServiceResponse(_resourceService, activeProductsResponse, ResponseMessages.DATA_RETRIEVED_SUCCESSFULLY);
         }
-
         public async Task<ServiceResponse> UpdateAsync(UpdateProductRequest updateProductRequest)
         {
             var product = await _productRepository.GetByIdAsync(updateProductRequest.Id);
